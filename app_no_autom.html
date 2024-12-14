@@ -107,151 +107,102 @@
             <p style="color: #2563eb; font-weight: 800;">Investigació en Malalties Respiratòries</p>
         </div>
         <div class="card-body">
-            <!-- Formulari inicial per al codi d'usuari -->
             <div id="user-form-section">
-                <label class="label" for="codNumber">Introdueix el teu Codi d'Usuari</label>
-                <input type="text" id="codNumber" class="input" placeholder="Codi d'usuari">
-                <button type="button" id="identifyButton" class="button">Continuar</button>
+                <label class="label" for="codNumber">Enter your User Code</label>
+                <input type="text" id="codNumber" class="input" placeholder="User Code">
+                <button type="button" id="identifyButton" class="button">Continue</button>
             </div>
 
-            <!-- Formulari principal (inicialment ocult) -->
             <form id="predictor-form" style="display: none;">
-                <p class="user-info" id="user-info">Usuari: </p>
-                <h2 class="card-title">Predictor de Malalties Respiratòries</h2>
+                <p class="user-info" id="user-info">User: </p>
+                <h2 class="card-title">Respiratory Diseases Predictor</h2>
 
                 <div class="form-group">
-                    <label class="label">Variable 1 (Resposta Binària)</label>
+                    <label class="label">What is the patient's gender?</label>
                     <div class="radio-group">
                         <div class="radio-option">
-                            <input type="radio" name="variable1" id="variable1-yes" value="yes">
-                            <label for="variable1-yes">Sí</label>
+                            <input type="radio" name="Sex" id="sex-male" value="Male">
+                            <label for="sex-male">Male</label>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="variable1" id="variable1-no" value="no">
-                            <label for="variable1-no">No</label>
+                            <input type="radio" name="Sex" id="sex-female" value="Female">
+                            <label for="sex-female">Female</label>
                         </div>
-                    </div>
-                    <div class="error-message" id="error-variable1" style="display: none;">
-                        Si us plau, selecciona una opció
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="label">Variable 2 (Múltiples Opcions)</label>
+                    <label class="label">Age at Diagnosis</label>
+                    <input type="number" id="age-diagnosis" class="input" name="Age at diagnosis">
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Does the patient have a history of smoking?</label>
                     <div class="radio-group">
                         <div class="radio-option">
-                            <input type="radio" name="variable2" id="variable2-opt1" value="option1">
-                            <label for="variable2-opt1">Opció 1</label>
+                            <input type="radio" name="TOBACCO" id="tobacco-yes" value="Yes">
+                            <label for="tobacco-yes">Yes</label>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="variable2" id="variable2-opt2" value="option2">
-                            <label for="variable2-opt2">Opció 2</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="variable2" id="variable2-opt3" value="option3">
-                            <label for="variable2-opt3">Opció 3</label>
+                            <input type="radio" name="TOBACCO" id="tobacco-no" value="No">
+                            <label for="tobacco-no">No</label>
                         </div>
                     </div>
-                    <div class="error-message" id="error-variable2" style="display: none;">
-                        Si us plau, selecciona una opció
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Select all blood count abnormalities observed in the patient</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="checkbox" name="Blood count abnormalities" value="Anemia"> Anemia
+                        </div>
+                        <div class="radio-option">
+                            <input type="checkbox" name="Blood count abnormalities" value="Thrombocytopenia"> Thrombocytopenia
+                        </div>
+                        <div class="radio-option">
+                            <input type="checkbox" name="Blood count abnormalities" value="Leukocytosis"> Leukocytosis
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group slider-container">
-                    <label class="label">Variable 3 (Slider 0-10)</label>
-                    <input type="range" class="slider" id="variable3" min="0" max="10" step="1">
-                    <p id="slider-value">Valor: 0</p>
-                    <div class="error-message" id="error-variable3" style="display: none;">
-                        Si us plau, selecciona un valor diferent de 0
-                    </div>
+                    <label class="label">FVC (%) at Diagnosis</label>
+                    <input type="range" class="slider" id="fvc-diagnosis" name="FVC (%) at diagnosis" min="0" max="100" step="1">
+                    <p id="slider-value-fvc">Value: 0</p>
                 </div>
 
-                <button type="submit" class="button">Enviar Dades</button>
+                <button type="submit" class="button">Submit Data</button>
             </form>
         </div>
     </div>
 
     <script>
-        // Elements del DOM
         const codNumberInput = document.getElementById('codNumber');
         const identifyButton = document.getElementById('identifyButton');
         const userFormSection = document.getElementById('user-form-section');
         const predictorForm = document.getElementById('predictor-form');
         const userInfo = document.getElementById('user-info');
-        const pulmoImage = document.getElementById('pulmo-image');
-        const maratoImage = document.getElementById('marato-image');
-        const slider = document.getElementById('variable3');
-        const sliderValue = document.getElementById('slider-value');
+        const sliderFVC = document.getElementById('fvc-diagnosis');
+        const sliderValueFVC = document.getElementById('slider-value-fvc');
 
-        // Emmagatzemar dades del qüestionari
-        const dataset = [];
-
-        // Funció per avançar al qüestionari
-        function proceedToQuestionnaire() {
+        identifyButton.addEventListener('click', () => {
             const userCode = codNumberInput.value.trim();
-            if (userCode !== '') {
+            if (userCode) {
                 userFormSection.style.display = 'none';
                 predictorForm.style.display = 'block';
-                if (pulmoImage) pulmoImage.style.display = 'none';
-                if (maratoImage) maratoImage.style.display = 'none';
-                userInfo.textContent = `Usuari: ${userCode}`;
+                userInfo.textContent = `User: ${userCode}`;
             } else {
-                alert("Si us plau, introdueix el teu codi d'usuari.");
-            }
-        }
-
-        // Funció per validar el formulari
-        function validateForm() {
-            const formData = {
-                variable1: document.querySelector('input[name="variable1"]:checked')?.value,
-                variable2: document.querySelector('input[name="variable2"]:checked')?.value,
-                variable3: document.getElementById('variable3').value
-            };
-
-            // Resetejar errors
-            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
-
-            let isValid = true;
-            if (!formData.variable1) {
-                document.getElementById('error-variable1').style.display = 'block';
-                isValid = false;
-            }
-            if (!formData.variable2) {
-                document.getElementById('error-variable2').style.display = 'block';
-                isValid = false;
-            }
-            if (!formData.variable3 || formData.variable3 === '0') {
-                document.getElementById('error-variable3').style.display = 'block';
-                isValid = false;
-            }
-            return isValid ? formData : null;
-        }
-
-        // Funció per descarregar el fitxer .xlsx
-        function downloadExcel() {
-            const workbook = XLSX.utils.book_new();
-            const worksheet = XLSX.utils.json_to_sheet(dataset);
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Dades");
-            XLSX.writeFile(workbook, "respostes_questionari.xlsx");
-        }
-
-        // Event Listeners
-        identifyButton.addEventListener('click', proceedToQuestionnaire);
-        predictorForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formData = validateForm();
-            if (formData) {
-                dataset.push({
-                    usuari: codNumberInput.value.trim(),
-                    ...formData
-                });
-                downloadExcel();
-                alert("Respostes enviades correctament!");
+                alert("Please enter your user code.");
             }
         });
 
-        slider.addEventListener('input', (e) => {
-            sliderValue.textContent = `Valor: ${e.target.value}`;
+        sliderFVC.addEventListener('input', (e) => {
+            sliderValueFVC.textContent = `Value: ${e.target.value}`;
+        });
+
+        predictorForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert("Data submitted successfully!");
         });
     </script>
 </body>
