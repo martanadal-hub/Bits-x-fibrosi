@@ -113,69 +113,221 @@
                 <button type="button" id="identifyButton" class="button">Continue</button>
             </div>
 
-            <form id="predictor-form" style="display: none;">
-                <p class="user-info" id="user-info">User: </p>
-                <h2 class="card-title">Respiratory Diseases Predictor</h2>
+            <!-- Pedigree -->
+            <div class="form-group">
+                <label class="label">What is the pedigree number for this patient?</label>
+                <input type="number" id="pedigree" class="input" name="Pedigree">
+            </div>
 
-                <div class="form-group">
-                    <label class="label">What is the patient's gender?</label>
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" name="Sex" id="sex-male" value="Male">
-                            <label for="sex-male">Male</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="Sex" id="sex-female" value="Female">
-                            <label for="sex-female">Female</label>
-                        </div>
+            <!-- Sex -->
+            <div class="form-group">
+                <label class="label">What is the patient's gender?</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="Sex" id="sex-male" value="Male">
+                        <label for="sex-male">Male</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="Sex" id="sex-female" value="Female">
+                        <label for="sex-female">Female</label>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="label">Age at Diagnosis</label>
-                    <input type="number" id="age-diagnosis" class="input" name="Age at diagnosis">
-                </div>
+            <!-- Age at Diagnosis -->
+            <div class="form-group">
+                <label class="label">Age at Diagnosis</label>
+                <input type="number" id="age-diagnosis" class="input" name="Age at diagnosis">
+            </div>
 
-                <div class="form-group">
-                    <label class="label">Does the patient have a history of smoking?</label>
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" name="TOBACCO" id="tobacco-yes" value="Yes">
-                            <label for="tobacco-yes">Yes</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="TOBACCO" id="tobacco-no" value="No">
-                            <label for="tobacco-no">No</label>
-                        </div>
+            <!-- Final Diagnosis -->
+            <div class="form-group">
+                <label class="label">Final Diagnosis</label>
+                <select id="final-diagnosis" class="input" name="Final diagnosis">
+                    <option value="UIP">UIP</option>
+                    <option value="Probable UIP">Probable UIP</option>
+                    <option value="Non UIP">Non UIP</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <!-- Tobacco -->
+            <div class="form-group">
+                <label class="label">Does the patient have a history of smoking?</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="TOBACCO" id="tobacco-yes" value="Yes">
+                        <label for="tobacco-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="TOBACCO" id="tobacco-no" value="No">
+                        <label for="tobacco-no">No</label>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="label">Select all blood count abnormalities observed in the patient</label>
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="checkbox" name="Blood count abnormalities" value="Anemia"> Anemia
-                        </div>
-                        <div class="radio-option">
-                            <input type="checkbox" name="Blood count abnormalities" value="Thrombocytopenia"> Thrombocytopenia
-                        </div>
-                        <div class="radio-option">
-                            <input type="checkbox" name="Blood count abnormalities" value="Leukocytosis"> Leukocytosis
-                        </div>
+            <!-- Radiological Pattern -->
+            <div class="form-group">
+                <label class="label">Radiological Pattern</label>
+                <select id="radiological-pattern" class="input" name="Radiological Pattern">
+                    <option value="UIP">UIP</option>
+                    <option value="Probable UIP">Probable UIP</option>
+                    <option value="Non UIP">Non UIP</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <!-- Biopsy -->
+            <div class="form-group">
+                <label class="label">Has a biopsy been performed?</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="Biopsy" id="biopsy-yes" value="Yes">
+                        <label for="biopsy-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="Biopsy" id="biopsy-no" value="No">
+                        <label for="biopsy-no">No</label>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group slider-container">
-                    <label class="label">FVC (%) at Diagnosis</label>
-                    <input type="range" class="slider" id="fvc-diagnosis" name="FVC (%) at diagnosis" min="0" max="100" step="1">
-                    <p id="slider-value-fvc">Value: 0</p>
+            <!-- Extrapulmonary Affectation -->
+            <div class="form-group">
+                <label class="label">Does the patient have extrapulmonary affectation?</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="Extrapulmonary affectation" id="extra-aff-yes" value="Yes">
+                        <label for="extra-aff-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="Extrapulmonary affectation" id="extra-aff-no" value="No">
+                        <label for="extra-aff-no">No</label>
+                    </div>
                 </div>
+            </div>
 
-                <button type="submit" class="button">Submit Data</button>
-            </form>
+            <!-- Associated Lung Cancer -->
+            <div class="form-group">
+                <label class="label">Does the patient have associated lung cancer?</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="Associated lung cancer" id="lung-cancer-yes" value="Yes">
+                        <label for="lung-cancer-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="Associated lung cancer" id="lung-cancer-no" value="No">
+                        <label for="lung-cancer-no">No</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Cancer -->
+            <div class="form-group">
+                <label class="label">Does the patient have any other type of cancer?</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="Other cancer" id="other-cancer-yes" value="Yes">
+                        <label for="other-cancer-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="Other cancer" id="other-cancer-no" value="No">
+                        <label for="other-cancer-no">No</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Type of Neoplasia -->
+            <div class="form-group">
+                <label class="label">Type of Neoplasia</label>
+                <input type="text" id="type-neoplasia" class="input" name="Type of neoplasia">
+            </div>
+
+            <!-- Blood Count Abnormalities -->
+            <div class="form-group">
+                <label class="label">Select all blood count abnormalities observed in the patient</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="checkbox" name="Blood count abnormalities" value="Anemia"> Anemia
+                    </div>
+                    <div class="radio-option">
+                        <input type="checkbox" name="Blood count abnormalities" value="Thrombocytopenia"> Thrombocytopenia
+                    </div>
+                    <div class="radio-option">
+                        <input type="checkbox" name="Blood count abnormalities" value="Leukocytosis"> Leukocytosis
+                    </div>
+                    <div class="radio-option">
+                        <input type="checkbox" name="Blood count abnormalities" value="Leukopenia"> Leukopenia
+                    </div>
+                </div>
+            </div>
+
+            <!-- Liver Function -->
+            <div class="form-group">
+                <label class="label">Liver Abnormality before Diagnosis</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="Liver abnormality before diagnosis" id="liver-abn-yes" value="Yes">
+                        <label for="liver-abn-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="Liver abnormality before diagnosis" id="liver-abn-no" value="No">
+                        <label for="liver-abn-no">No</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FVC (%) at Diagnosis -->
+            <div class="form-group slider-container">
+                <label class="label">FVC (%) at Diagnosis</label>
+                <input type="range" class="slider" id="fvc-diagnosis" name="FVC (%) at diagnosis" min="0" max="100" step="1">
+                <p id="slider-value-fvc">Value: 0</p>
+            </div>
+
+            <!-- DLCO (%) at Diagnosis -->
+            <div class="form-group slider-container">
+                <label class="label">DLCO (%) at Diagnosis</label>
+                <input type="range" class="slider" id="dlco-diagnosis" name="DLCO (%) at diagnosis" min="0" max="100" step="1">
+                <p id="slider-value-dlco">Value: 0</p>
+            </div>
+
+            <!-- RadioWorsening2y -->
+            <div class="form-group">
+                <label class="label">Has the radiological condition worsened within 2 years?</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="RadioWorsening2y" id="radio-worsen-yes" value="Yes">
+                        <label for="radio-worsen-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="RadioWorsening2y" id="radio-worsen-no" value="No">
+                        <label for="radio-worsen-no">No</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Severity of Telomere Shortening -->
+            <div class="form-group">
+                <label class="label">Severity of Telomere Shortening</label>
+                <input type="number" id="telomere-shortening" class="input" name="Severity of telomere shortening" min="0" max="10">
+            </div>
+
+            <!-- Progressive Disease -->
+            <div class="form-group">
+                <label class="label">Is the disease progressive?</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="Progressive disease" id="progressive-yes" value="Yes">
+                        <label for="progressive-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="Progressive disease" id="progressive-no" value="No">
+                        <label for="progressive-no">No</label>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-
+    
     <script>
         const codNumberInput = document.getElementById('codNumber');
         const identifyButton = document.getElementById('identifyButton');

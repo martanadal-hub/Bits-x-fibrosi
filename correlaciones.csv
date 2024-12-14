@@ -1,0 +1,81 @@
+,New_Death,si/no progressio
+Pedigree,,0.16025205315553595
+Sex,,0.08586656399894485
+FamilialvsSporadic,,-0.19964506488200828
+COD NUMBER,,
+Age at diagnosis,,
+Binary diagnosis,,0.08337052587058916
+Final diagnosis,,0.060565027679993874
+TOBACCO,,0.02345900958360826
+Detail,,
+Comorbidities,,-0.09686550657226166
+Radiological Pattern,,
+Detail on NON UIP,,
+Biopsy,,
+Pathology Pattern Binary,,
+"Pathology pattern UIP, probable or CHP",,
+Pathology pattern,,
+Extras AP,,
+Diagnosis after Biopsy,,
+Multidsciplinary committee,,
+Pirfenidone,,0.12315089544763444
+Nintedanib,,0.047653953263117374
+Antifibrotic Drug,,0.13166927418612479
+Prednisone,,0.0401199847642371
+Mycophenolate,,0.03700377622246806
+Treatment,,
+Extrapulmonary affectation,,
+Type of telomeric extrapulmonary affectation,,
+Extra,,
+Associated lung cancer,,
+Other cancer,,
+Type of neoplasia,,
+Hematological abnormality before diagnosis,,
+Blood count abnormality at diagnosis,,
+Anemia,,
+Thrombocytopenia,,
+Thrombocytosis,,
+Lymphocytosis,,
+Lymphopenia,,
+Neutrophilia,,
+Neutropenia,,
+Leukocytosis,,
+Leukopenia,,
+Hematologic Disease,,
+Liver abnormality before diagnosis,,
+Liver abnormality,,
+LDH,,0.18222976734443314
+ALT,,0.012053269461326926
+AST,,-0.011393803455921772
+ALP,,0.1296294096025266
+GGT,,0.05774911829991125
+Transaminitis,,-0.0065183276033000965
+Cholestasis,,0.0974862048014091
+Type of liver abnormality,,
+Liver disease,,
+FVC (L) at diagnosis,,
+FVC (%) at diagnosis,,
+DLCO (%) at diagnosis,,
+FVC (L) 1 year after diagnosis,,
+FVC (%) 1 year after diagnosis,,
+DLCO (%) 1 year after diagnosis,,
+RadioWorsening2y,,
+Necessity of transplantation,,
+Transplantation date,,
+Death,,
+Cause of death,,
+Identified Infection,,
+Date of death,,
+Type of family history,,
+1st degree relative,,0.17518899235461297
+2nd degree relative,,0.06597147380624283
+More than 1 relative,,0.04493178877366175
+Genetic mutation studied in patient,,
+Mutation Type,,
+Severity of telomere shortening,,
+Severity of telomere shortening - Transform 4,,
+Progressive disease,,
+ProgressiveDisease,,
+New_Death,1.0,
+progressio,,
+si/no progressio,,1.0
