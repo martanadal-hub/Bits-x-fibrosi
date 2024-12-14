@@ -85,6 +85,14 @@
         .hidden {
             display: none;
         }
+        .select[multiple] {
+            width: 100%;
+            height: auto;
+            max-height: 150px; /* Fixa una alçada màxima per evitar que sigui massa llarg */
+            overflow-y: auto; /* Afegir scroll si les opcions són moltes */
+            box-sizing: border-box; /* Assegura't que l'amplada es distribueixi bé */
+        }
+
     </style>
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 </head>
@@ -116,16 +124,10 @@
             <!-- Sex -->
             <div class="form-group">
                 <label class="label">What is the patient's gender?</label>
-                <div class="radio-group">
-                    <div class="radio-option">
-                        <input type="radio" name="Sex" id="sex-male" value="Male">
-                        <label for="sex-male">Male</label>
-                    </div>
-                    <div class="radio-option">
-                        <input type="radio" name="Sex" id="sex-female" value="Female">
-                        <label for="sex-female">Female</label>
-                    </div>
-                </div>
+                <select id="sex" class="input" name="sex">
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                </select>
             </div>
 
             <!-- Age at Diagnosis -->
@@ -170,6 +172,7 @@
                     <option value="biopsy-surgical">Surgical biopsy</option>
                 </select>
             </div>
+
             <!-- Extrapulmonary Affectation -->
             <div class="form-group">
                 <label class="label">Does the patient have any extrapulmonary manifestations?</label>
@@ -181,21 +184,21 @@
 
             <!-- Cancer History -->
             <div class="form-group">
-                <label class="label">Associated lung cancer: Does the patient have associated lung cancer?</label>
+                <label class="label">Does the patient have associated lung cancer?</label>
                 <select id="LungCancer" class="input" name="LungCancer">
                     <option value="no">No</option>
                     <option value="yes">Yes</option>
                 </select>
             </div>
             <div class="form-group">
-                <label class="label">Other cancer: Does the patient have a history of other cancers?</label>
+                <label class="label">Does the patient have a history of other cancers?</label>
                 <select id="OtherCancer" class="input" name="OtherCancer">
                     <option value="no">No</option>
                     <option value="yes">Yes</option>
                 </select>
             </div>
             <div class="form-group">
-                <label class="label">Type of neoplasia: If the patient has a history of cancer, specify the type of neoplasia.</label>
+                <label class="label">If the patient has a history of cancer, specify the type of neoplasia.</label>
                 <input type="text" id="NeoplasiaType" class="input" name="NeoplasiaType">
             </div>
 
@@ -207,9 +210,11 @@
                     <option value="yes">Yes</option>
                 </select>
             </div>
+
+
             <div class="form-group">
                 <label class="label">Select the blood count abnormalities observed in the patient:</label>
-                <select id="BloodCountAbnormalities" class="input" name="BloodCountAbnormalities" multiple>
+                <select id="BloodCountAbnormalities" class="input" name="BloodCountAbnormalities[]" multiple size="9">
                     <option value="anemia">Anemia</option>
                     <option value="thrombocytopenia">Thrombocytopenia</option>
                     <option value="thrombocytosis">Thrombocytosis</option>
@@ -221,6 +226,7 @@
                     <option value="leukopenia">Leukopenia</option>
                 </select>
             </div>
+            
             <div class="form-group">
                 <label class="label">Does the patient have any hematological disease?</label>
                 <select id="HematologicDisease" class="input" name="HematologicDisease">
@@ -231,37 +237,66 @@
 
             <!-- Liver Function -->
             <div class="form-group">
-                <label class="label">Liver abnormality before diagnosis:</label>
+                <label class="label">Did the patient have any liver abnormality before diagnosis?</label>
                 <select id="LiverAbnormalityBefore" class="input" name="LiverAbnormalityBefore">
                     <option value="no">No</option>
                     <option value="yes">Yes</option>
                 </select>
             </div>
+
             <div class="form-group">
-                <label class="label">What are the patient's values for the following liver function tests?</label>
-                <div>
-                    <label for="ldh">LDH:</label>
-                    <input type="number" id="LDH" name="LDH" class="input">
-                </div>
-                <div>
-                    <label for="alt">ALT:</label>
-                    <input type="number" id="ALT" name="ALT" class="input">
-                </div>
-                <div>
-                    <label for="ast">AST:</label>
-                    <input type="number" id="AST" name="AST" class="input">
-                </div>
-                <div>
-                    <label for="alp">ALP:</label>
-                    <input type="number" id="ALP" name="ALP" class="input">
-                </div>
-                <div>
-                    <label for="ggt">GGT:</label>
-                    <input type="number" id="GGT" name="GGT" class="input">
-                </div>
+                <label class="label">Which of the following liver function tests does the patient have?</label>
+                <select id="liverfunctiontests" class="input" name="liverfunctiontests[]" multiple size="5">
+                    <option value="LDH">LDH</option>
+                    <option value="ALT">ALT</option>
+                    <option value="AST">AST</option>
+                    <option value="ALP">ALP</option>
+                    <option value="GGT">GGT</option>
+                </select>
+            </div>            
+            
+
+            <!-- Lung Function Tests -->
+            <div class="form-group">
+                <label class="label">What is the patient's FVC (%) at diagnosis?</label>
+                <input type="number" id="FVC" class="input" name="FVC" placeholder="Enter FVC (%)">
             </div>
 
-            
+            <div class="form-group">
+                <label class="label">What is the patient's DLCO (%) at diagnosis?</label>
+                <input type="number" id="DLCO" class="input" name="DLCO" placeholder="Enter DLCO (%)">
+            </div>
+
+            <!-- Family History -->
+
+            <div class="form-group">
+                <label class="label">How many first-degree relatives does the patient have with similar conditions?</label>
+                <input type="number" id="FirstDegreeRelative" class="input" name="FirstDegreeRelative" placeholder="Enter a number">
+            </div>
+
+            <div class="form-group">
+                <label class="label">How many second-degree relatives does the patient have with similar conditions?</label>
+                <input type="number" id="SecondDegreeRelative" class="input" name="SecondDegreeRelative" placeholder="Enter a number">
+            </div>
+
+            <div class="form-group">
+                <label class="label">How many more relatives does the patient have with similar conditions?</label>
+                <input type="number" id="MoreThanOneRelative" class="input" name="MoreThanOneRelative" placeholder="Enter a number">
+            </div>
+
+            <!-- Genetic Information -->
+            <div class="form-group">
+                <label class="label">Has a genetic mutation been identified in the patient?</label>
+                <select id="GeneticMutation" class="input" name="GeneticMutation">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="label">What is the severity of telomere shortening in the patient?</label>
+                <input type="number" id="TelomereShorteningSeverity" class="input" name="TelomereShorteningSeverity" placeholder="Enter a number">
+            </div>
         </div>
     </div>
 

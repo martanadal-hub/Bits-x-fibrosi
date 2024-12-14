@@ -97,6 +97,9 @@
             font-size: 14px;
             display: none;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -108,138 +111,266 @@
         </div>
         <div class="card-body">
             <!-- Formulari inicial per al codi d'usuari -->
-            <div id="user-form-section">
+            <div id="step-1">
                 <label class="label" for="codNumber">Introdueix el teu Codi d'Usuari</label>
                 <input type="text" id="codNumber" class="input" placeholder="Codi d'usuari">
                 <p class="error-message" id="user-error">Si us plau, introdueix el teu codi d'usuari.</p>
-                <button type="button" id="identifyButton" class="button">Continuar</button>
+                <button type="button" id="continue-button-1" class="button">Continuar</button>
             </div>
 
-            <!-- Formulari principal (inicialment ocult) -->
-            <form id="predictor-form" style="display: none;">
+            <!-- Formulari principal, ocult inicialment -->
+            <div id="step-2" class="hidden">
                 <p class="user-info" id="user-info">Usuari: </p>
-                <h2 class="card-title">Predictor de Malalties Respiratòries</h2>
-
+                <h2 class="card-title">Informació Personal</h2>
+                
+                <!-- Pedigree -->
                 <div class="form-group">
-                    <label class="label">Variable 1 (Resposta Binària)</label>
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" name="variable1" id="variable1-yes" value="yes">
-                            <label for="variable1-yes">Sí</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="variable1" id="variable1-no" value="no">
-                            <label for="variable1-no">No</label>
-                        </div>
-                    </div>
+                    <label class="label" for="pedigree">Quin és el número de pedigrí d'aquest pacient?</label>
+                    <input type="number" id="pedigree" class="input" name="Pedigree" placeholder="Introdueix un número">
+                    <p class="error-message" id="pedigree-error">Si us plau, introdueix el número de pedigrí.</p>
                 </div>
 
+                <!-- Sexe -->
                 <div class="form-group">
-                    <label class="label">Variable 2 (Múltiples Opcions)</label>
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" name="variable2" id="variable2-opt1" value="option1">
-                            <label for="variable2-opt1">Opció 1</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="variable2" id="variable2-opt2" value="option2">
-                            <label for="variable2-opt2">Opció 2</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="variable2" id="variable2-opt3" value="option3">
-                            <label for="variable2-opt3">Opció 3</label>
-                        </div>
-                    </div>
+                    <label class="label" for="sex">Quin és el gènere del pacient?</label>
+                    <select id="sex" class="input" name="sex">
+                        <option value="">Selecciona</option>
+                        <option value="Male">Home</option>
+                        <option value="Female">Dona</option>
+                    </select>
+                    <p class="error-message" id="sex-error">Si us plau, selecciona el gènere del pacient.</p>
                 </div>
 
-                <div class="form-group slider-container">
-                    <label class="label">Variable 3 (Slider 0-10)</label>
-                    <input type="range" class="slider" id="variable3" min="0" max="10" step="1">
-                    <p id="slider-value">Valor: 0</p>
+                <!-- Edat al Diagnòstic -->
+                <div class="form-group">
+                    <label class="label" for="age-diagnosis">Quina és l'edat del pacient?</label>
+                    <input type="number" id="age-diagnosis" class="input" name="Age at diagnosis" placeholder="Introdueix un número">
+                    <p class="error-message" id="age-diagnosis-error">Si us plau, introdueix l'edat del pacient.</p>
                 </div>
 
-                <p class="error-message" id="form-error">Si us plau, completa totes les preguntes abans d'enviar.</p>
-                <button type="submit" class="button">Enviar Dades</button>
-            </form>
+                <p class="error-message" id="form-error-step-2">Si us plau, completa tots els camps requerits.</p>
+
+                <button type="button" id="continue-button-2" class="button">Continuar</button>
+                <button type="button" id="back-button-2" class="button" style="background: #6b7280; margin-top: 10px;">Enrere</button>
+            </div>
+
+            <!-- Tercera Secció: Diagnòstic i Historial de Tabaquisme -->
+            <div id="step-3" class="hidden">
+                <p class="user-info" id="user-info-step-3">Usuari: </p>
+                <h2 class="card-title">Diagnòstic i Historial de Tabaquisme</h2>
+
+                <!-- Diagnòstic Final -->
+                <div class="form-group">
+                    <label class="label" for="final-diagnosis">Quin és el diagnòstic final del pacient?</label>
+                    <input type="number" id="final-diagnosis" class="input" name="FinalDiagnosis" placeholder="Introdueix un número">
+                    <p class="error-message" id="final-diagnosis-error">Si us plau, introdueix el diagnòstic final del pacient.</p>
+                </div>
+
+                <!-- Historial de Tabaquisme -->
+                <div class="form-group">
+                    <label class="label" for="tobacco-history">El pacient té antecedents de tabaquisme?</label>
+                    <select id="tobacco-history" class="input" name="TobaccoHistory">
+                        <option value="">Selecciona</option>
+                        <option value="No history of smoking">Sense antecedents de tabaquisme</option>
+                        <option value="Active smoker">Fumat actiu</option>
+                        <option value="Ex-smoker">Ex-fumat</option>
+                    </select>
+                    <p class="error-message" id="tobacco-error">Si us plau, selecciona l'historial de tabaquisme del pacient.</p>
+                </div>
+
+                <!-- Missatge d'error general del formulari -->
+                <p class="error-message" id="form-error-step-3">Si us plau, completa tots els camps requerits.</p>
+
+                <button type="button" id="submit-button" class="button">Enviar</button>
+                <button type="button" id="back-button-3" class="button" style="background: #6b7280; margin-top: 10px;">Enrere</button>
         </div>
     </div>
 
     <script>
-        const predictorForm = document.getElementById('predictor-form');
+        const step1 = document.getElementById('step-1');
+        const step2 = document.getElementById('step-2');
+        const step3 = document.getElementById('step-3');
+
+        const continueButton1 = document.getElementById('continue-button-1');
+        const continueButton2 = document.getElementById('continue-button-2');
+        const submitButton = document.getElementById('submit-button');
+        const backButton2 = document.getElementById('back-button-2');
+        const backButton3 = document.getElementById('back-button-3');
+
         const codNumberInput = document.getElementById('codNumber');
-        const identifyButton = document.getElementById('identifyButton');
-        const userFormSection = document.getElementById('user-form-section');
-        const userInfo = document.getElementById('user-info');
-        const slider = document.getElementById('variable3');
-        const sliderValue = document.getElementById('slider-value');
-        const pulmoImage = document.getElementById('pulmo-image');
         const userError = document.getElementById('user-error');
-        const formError = document.getElementById('form-error');
 
-        // Actualitzar el valor del slider
-        slider.addEventListener('input', (e) => {
-            sliderValue.textContent = `Valor: ${e.target.value}`;
-        });
+        const pedigreeInput = document.getElementById('pedigree');
+        const sexInput = document.getElementById('sex');
+        const ageDiagnosisInput = document.getElementById('age-diagnosis');
+        const pedigreeError = document.getElementById('pedigree-error');
+        const sexError = document.getElementById('sex-error');
+        const ageDiagnosisError = document.getElementById('age-diagnosis-error');
+        const formErrorStep2 = document.getElementById('form-error-step-2');
 
-        // Avançar al qüestionari
-        identifyButton.addEventListener('click', () => {
+        const finalDiagnosisInput = document.getElementById('final-diagnosis');
+        const tobaccoHistoryInput = document.getElementById('tobacco-history');
+        const finalDiagnosisError = document.getElementById('final-diagnosis-error');
+        const tobaccoError = document.getElementById('tobacco-error');
+        const formErrorStep3 = document.getElementById('form-error-step-3');
+
+        // Funció per mostrar una secció i ocultar les altres
+        function showStep(stepToShow) {
+            [step1, step2, step3].forEach(step => {
+                if (step === stepToShow) {
+                    step.classList.remove('hidden');
+                } else {
+                    step.classList.add('hidden');
+                }
+            });
+        }
+
+        // Continuar des de la primera secció a la segona
+        continueButton1.addEventListener('click', () => {
             const userCode = codNumberInput.value.trim();
             if (userCode) {
-                userFormSection.style.display = 'none';
-                predictorForm.style.display = 'block';
-                userInfo.textContent = `Usuari: ${userCode}`;
-                pulmoImage.style.display = 'none';
-                userError.style.display = 'none'; // Amaga l'error
+                userError.style.display = 'none';
+                // Actualitzar el text d'usuari en les seccions següents
+                document.getElementById('user-info').textContent = `Usuari: ${userCode}`;
+                document.getElementById('user-info-step-3').textContent = `Usuari: ${userCode}`;
+                showStep(step2);
             } else {
-                userError.style.display = 'block'; // Mostra l'error
+                userError.style.display = 'block';
             }
         });
 
+        // Continuar des de la segona secció a la tercera
+        continueButton2.addEventListener('click', () => {
+            let isValid = true;
+
+            // Validar Pedigree
+            const pedigree = pedigreeInput.value.trim();
+            if (!pedigree) {
+                pedigreeError.style.display = 'block';
+                isValid = false;
+            } else {
+                pedigreeError.style.display = 'none';
+            }
+
+            // Validar Sexe
+            const sex = sexInput.value;
+            if (!sex) {
+                sexError.style.display = 'block';
+                isValid = false;
+            } else {
+                sexError.style.display = 'none';
+            }
+
+            // Validar Edat al Diagnòstic
+            const ageDiagnosis = ageDiagnosisInput.value.trim();
+            if (!ageDiagnosis) {
+                ageDiagnosisError.style.display = 'block';
+                isValid = false;
+            } else {
+                ageDiagnosisError.style.display = 'none';
+            }
+
+            if (isValid) {
+                formErrorStep2.style.display = 'none';
+                showStep(step3);
+            } else {
+                formErrorStep2.style.display = 'block';
+            }
+        });
+
+        // Enviar el formulari des de la tercera secció
+        submitButton.addEventListener('click', async () => {
+            let isValid = true;
+
+            // Validar Diagnòstic Final
+            const finalDiagnosis = finalDiagnosisInput.value.trim();
+            if (!finalDiagnosis) {
+                finalDiagnosisError.style.display = 'block';
+                isValid = false;
+            } else {
+                finalDiagnosisError.style.display = 'none';
+            }
+
+            // Validar Historial de Tabaquisme
+            const tobaccoHistory = tobaccoHistoryInput.value;
+            if (!tobaccoHistory) {
+                tobaccoError.style.display = 'block';
+                isValid = false;
+            } else {
+                tobaccoError.style.display = 'none';
+            }
+
+            if (isValid) {
+                formErrorStep3.style.display = 'none';
+
+                // Reunir totes les dades
+                const formData = {
+                    usuari: codNumberInput.value.trim(),
+                    Pedigree: pedigreeInput.value.trim(),
+                    sex: sexInput.value,
+                    'Age at diagnosis': ageDiagnosisInput.value.trim(),
+                    FinalDiagnosis: finalDiagnosisInput.value.trim(),
+                    TobaccoHistory: tobaccoHistoryInput.value
+                };
+
+                try {
+                    const response = await fetch('/save-excel', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (response.ok) {
+                        alert('Respostes enviades correctament!');
+                        // Reiniciar els camps del formulari manualment
+                        codNumberInput.value = '';
+                        pedigreeInput.value = '';
+                        sexInput.value = '';
+                        ageDiagnosisInput.value = '';
+                        finalDiagnosisInput.value = '';
+                        tobaccoHistoryInput.value = '';
+
+                        // Reiniciar els missatges d'error
+                        userError.style.display = 'none';
+                        pedigreeError.style.display = 'none';
+                        sexError.style.display = 'none';
+                        ageDiagnosisError.style.display = 'none';
+                        finalDiagnosisError.style.display = 'none';
+                        tobaccoError.style.display = 'none';
+                        formErrorStep2.style.display = 'none';
+                        formErrorStep3.style.display = 'none';
+
+                        // Tornar a la primera secció
+                        showStep(step1);
+                    } else {
+                        alert('Hi ha hagut un problema en enviar les dades.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Hi ha hagut un problema en enviar les dades.');
+                }
+            } else {
+                formErrorStep3.style.display = 'block';
+            }
+        });
+
+        // Enrere des de la segona secció a la primera
+        backButton2.addEventListener('click', () => {
+            showStep(step1);
+        });
+
+        // Enrere des de la tercera secció a la segona
+        backButton3.addEventListener('click', () => {
+            showStep(step2);
+        });
+
+        // Permet enviar el primer pas amb la tecla Enter
         codNumberInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                identifyButton.click(); // Simula un clic al botó
+                continueButton1.click();
             }
         });
-
-        // Enviar dades al servidor Flask
-        predictorForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const variable1 = document.querySelector('input[name="variable1"]:checked')?.value;
-            const variable2 = document.querySelector('input[name="variable2"]:checked')?.value;
-            const variable3 = slider.value;
-
-            let isValid = true;
-
-            // Validar que totes les dades estiguin completades
-            if (!variable1 || !variable2 || variable3 === '0') {
-                formError.style.display = 'block'; // Mostra l'error
-                return;
-            } else {
-                formError.style.display = 'none'; // Amaga l'error
-            }
-
-            const formData = {
-                usuari: codNumberInput.value.trim(),
-                variable1,
-                variable2,
-                variable3
-            };
-
-            const response = await fetch('/save-excel', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-
-            if (response.ok) {
-                alert('Respostes enviades correctament!');
-            } else {
-                alert('Hi ha hagut un problema en enviar les dades.');
-            }
-        });
-        
     </script>
 </body>
 </html>
