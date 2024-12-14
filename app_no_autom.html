@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictor de Malalties Respiratòries</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #dceefe, #b3d4fc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 16px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+        .card-header {
+            margin-bottom: 20px;
+        }
+        .card-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #345fbe;
+        }
+        .label {
+            display: block;
+            font-size: 16px;
+            color: #1e40af;
+            margin-bottom: 8px;
+        }
+        .input {
+            width: 80%;
+            padding: 8px;
+            font-size: 14px;
+            border: 2px solid #93c5fd;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+        .button {
+            width: 80%;
+            padding: 8px;
+            background: #345fbe;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background: #1d4ed8;
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+        }
+        .radio-option input {
+            margin-right: 8px;
+        }
+        .slider-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .slider {
+            width: 80%;
+            margin: 10px 0;
+        }
+        .header-img {
+            margin-bottom: 20px;
+        }
+        .user-info {
+            font-size: 16px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 16px;
+        }
+        .error-message {
+            color: #dc2626;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+    </style>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            <img src="images/logo-marato.png" alt="La Marató Logo" width="300" height="auto" id="marato-image">
+            <img src="images/malalties-respiratories.jpg" alt="A Ple Pulmó" style="width: 100%; max-width: 200px; margin: 0 auto; display: block;" id="pulmo-image">
+            <p style="color: #2563eb; font-weight: 800;">Investigació en Malalties Respiratòries</p>
+        </div>
+        <div class="card-body">
+            <!-- Formulari inicial per al codi d'usuari -->
+            <div id="user-form-section">
+                <label class="label" for="codNumber">Introdueix el teu Codi d'Usuari</label>
+                <input type="text" id="codNumber" class="input" placeholder="Codi d'usuari">
+                <button type="button" id="identifyButton" class="button">Continuar</button>
+            </div>
+
+            <!-- Formulari principal (inicialment ocult) -->
+            <form id="predictor-form" style="display: none;">
+                <p class="user-info" id="user-info">Usuari: </p>
+                <h2 class="card-title">Predictor de Malalties Respiratòries</h2>
+
+                <div class="form-group">
+                    <label class="label">Variable 1 (Resposta Binària)</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="variable1" id="variable1-yes" value="yes">
+                            <label for="variable1-yes">Sí</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="variable1" id="variable1-no" value="no">
+                            <label for="variable1-no">No</label>
+                        </div>
+                    </div>
+                    <div class="error-message" id="error-variable1" style="display: none;">
+                        Si us plau, selecciona una opció
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Variable 2 (Múltiples Opcions)</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="variable2" id="variable2-opt1" value="option1">
+                            <label for="variable2-opt1">Opció 1</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="variable2" id="variable2-opt2" value="option2">
+                            <label for="variable2-opt2">Opció 2</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="variable2" id="variable2-opt3" value="option3">
+                            <label for="variable2-opt3">Opció 3</label>
+                        </div>
+                    </div>
+                    <div class="error-message" id="error-variable2" style="display: none;">
+                        Si us plau, selecciona una opció
+                    </div>
+                </div>
+
+                <div class="form-group slider-container">
+                    <label class="label">Variable 3 (Slider 0-10)</label>
+                    <input type="range" class="slider" id="variable3" min="0" max="10" step="1">
+                    <p id="slider-value">Valor: 0</p>
+                    <div class="error-message" id="error-variable3" style="display: none;">
+                        Si us plau, selecciona un valor diferent de 0
+                    </div>
+                </div>
+
+                <button type="submit" class="button">Enviar Dades</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Elements del DOM
+        const codNumberInput = document.getElementById('codNumber');
+        const identifyButton = document.getElementById('identifyButton');
+        const userFormSection = document.getElementById('user-form-section');
+        const predictorForm = document.getElementById('predictor-form');
+        const userInfo = document.getElementById('user-info');
+        const pulmoImage = document.getElementById('pulmo-image');
+        const maratoImage = document.getElementById('marato-image');
+        const slider = document.getElementById('variable3');
+        const sliderValue = document.getElementById('slider-value');
+
+        // Emmagatzemar dades del qüestionari
+        const dataset = [];
+
+        // Funció per avançar al qüestionari
+        function proceedToQuestionnaire() {
+            const userCode = codNumberInput.value.trim();
+            if (userCode !== '') {
+                userFormSection.style.display = 'none';
+                predictorForm.style.display = 'block';
+                if (pulmoImage) pulmoImage.style.display = 'none';
+                if (maratoImage) maratoImage.style.display = 'none';
+                userInfo.textContent = `Usuari: ${userCode}`;
+            } else {
+                alert("Si us plau, introdueix el teu codi d'usuari.");
+            }
+        }
+
+        // Funció per validar el formulari
+        function validateForm() {
+            const formData = {
+                variable1: document.querySelector('input[name="variable1"]:checked')?.value,
+                variable2: document.querySelector('input[name="variable2"]:checked')?.value,
+                variable3: document.getElementById('variable3').value
+            };
+
+            // Resetejar errors
+            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+
+            let isValid = true;
+            if (!formData.variable1) {
+                document.getElementById('error-variable1').style.display = 'block';
+                isValid = false;
+            }
+            if (!formData.variable2) {
+                document.getElementById('error-variable2').style.display = 'block';
+                isValid = false;
+            }
+            if (!formData.variable3 || formData.variable3 === '0') {
+                document.getElementById('error-variable3').style.display = 'block';
+                isValid = false;
+            }
+            return isValid ? formData : null;
+        }
+
+        // Funció per descarregar el fitxer .xlsx
+        function downloadExcel() {
+            const workbook = XLSX.utils.book_new();
+            const worksheet = XLSX.utils.json_to_sheet(dataset);
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Dades");
+            XLSX.writeFile(workbook, "respostes_questionari.xlsx");
+        }
+
+        // Event Listeners
+        identifyButton.addEventListener('click', proceedToQuestionnaire);
+        predictorForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = validateForm();
+            if (formData) {
+                dataset.push({
+                    usuari: codNumberInput.value.trim(),
+                    ...formData
+                });
+                downloadExcel();
+                alert("Respostes enviades correctament!");
+            }
+        });
+
+        slider.addEventListener('input', (e) => {
+            sliderValue.textContent = `Valor: ${e.target.value}`;
+        });
+    </script>
+</body>
+</html>
