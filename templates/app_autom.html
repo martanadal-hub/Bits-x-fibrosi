@@ -101,8 +101,8 @@
 <body>
     <div class="card">
         <div class="card-header">
-            <img src="images/logo-marato.png" alt="La Marató Logo" width="300" height="auto" id="marato-image">
-            <img src="images/malalties-respiratories.jpg" alt="A Ple Pulmó" style="width: 100%; max-width: 200px; margin: 0 auto; display: block;" id="pulmo-image">
+            <img src="{{ url_for('static', filename='images/logo-marato.png') }}" alt="La Marató Logo" width="300" height="auto" id="marato-image">
+            <img src="{{ url_for('static', filename='images/malalties-respiratories.jpg') }}" alt="A Ple Pulmó" style="width: 100%; max-width: 200px; margin: 0 auto; display: block;" id="pulmo-image">
             <p style="color: #2563eb; font-weight: 800;">Investigació en Malalties Respiratòries</p>
         </div>
         <div class="card-body">
