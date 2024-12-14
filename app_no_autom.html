@@ -85,12 +85,14 @@
         .hidden {
             display: none;
         }
-        select[multiple] {
+        .select[multiple] {
             width: 100%;
             height: auto;
             max-height: 150px; /* Fixa una alçada màxima per evitar que sigui massa llarg */
             overflow-y: auto; /* Afegir scroll si les opcions són moltes */
+            box-sizing: border-box; /* Assegura't que l'amplada es distribueixi bé */
         }
+
     </style>
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 </head>
@@ -251,7 +253,7 @@
                     <option value="ALP">ALP</option>
                     <option value="GGT">GGT</option>
                 </select>
-            </div>
+            </div>            
             
 
             <!-- Lung Function Tests -->
