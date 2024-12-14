@@ -170,6 +170,96 @@
                     <option value="biopsy-surgical">Surgical biopsy</option>
                 </select>
             </div>
+            <!-- Extrapulmonary Affectation -->
+            <div class="form-group">
+                <label class="label">Does the patient have any extrapulmonary manifestations?</label>
+                <select id="Extrapulmonary" class="input" name="Extrapulmonary">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+            <!-- Cancer History -->
+            <div class="form-group">
+                <label class="label">Associated lung cancer: Does the patient have associated lung cancer?</label>
+                <select id="LungCancer" class="input" name="LungCancer">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="label">Other cancer: Does the patient have a history of other cancers?</label>
+                <select id="OtherCancer" class="input" name="OtherCancer">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="label">Type of neoplasia: If the patient has a history of cancer, specify the type of neoplasia.</label>
+                <input type="text" id="NeoplasiaType" class="input" name="NeoplasiaType">
+            </div>
+
+            <!-- Hematological Abnormalities -->
+            <div class="form-group">
+                <label class="label">Did the patient have hematological abnormalities before diagnosis?</label>
+                <select id="HematologicAbnormalities" class="input" name="HematologicAbnormalities">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="label">Select the blood count abnormalities observed in the patient:</label>
+                <select id="BloodCountAbnormalities" class="input" name="BloodCountAbnormalities" multiple>
+                    <option value="anemia">Anemia</option>
+                    <option value="thrombocytopenia">Thrombocytopenia</option>
+                    <option value="thrombocytosis">Thrombocytosis</option>
+                    <option value="lymphocytosis">Lymphocytosis</option>
+                    <option value="lymphopenia">Lymphopenia</option>
+                    <option value="neutrophilia">Neutrophilia</option>
+                    <option value="neutropenia">Neutropenia</option>
+                    <option value="leukocytosis">Leukocytosis</option>
+                    <option value="leukopenia">Leukopenia</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="label">Does the patient have any hematological disease?</label>
+                <select id="HematologicDisease" class="input" name="HematologicDisease">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+            <!-- Liver Function -->
+            <div class="form-group">
+                <label class="label">Liver abnormality before diagnosis:</label>
+                <select id="LiverAbnormalityBefore" class="input" name="LiverAbnormalityBefore">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="label">What are the patient's values for the following liver function tests?</label>
+                <div>
+                    <label for="ldh">LDH:</label>
+                    <input type="number" id="LDH" name="LDH" class="input">
+                </div>
+                <div>
+                    <label for="alt">ALT:</label>
+                    <input type="number" id="ALT" name="ALT" class="input">
+                </div>
+                <div>
+                    <label for="ast">AST:</label>
+                    <input type="number" id="AST" name="AST" class="input">
+                </div>
+                <div>
+                    <label for="alp">ALP:</label>
+                    <input type="number" id="ALP" name="ALP" class="input">
+                </div>
+                <div>
+                    <label for="ggt">GGT:</label>
+                    <input type="number" id="GGT" name="GGT" class="input">
+                </div>
+            </div>
 
             
         </div>
