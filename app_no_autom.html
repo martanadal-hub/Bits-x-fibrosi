@@ -116,26 +116,11 @@
             <!-- Sex -->
             <div class="form-group">
                 <label class="label">What is the patient's gender?</label>
-                <div class="radio-group">
-                    <div class="radio-option">
-                        <input type="radio" name="Sex" id="sex-male" value="Male">
-                        <label for="sex-male">Male</label>
-                    </div>
-                    <div class="radio-option">
-                        <input type="radio" name="Sex" id="sex-female" value="Female">
-                        <label for="sex-female">Female</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="label">What is the patient's gender?</label>
                 <select id="sex" class="input" name="sex">
                     <option value="Female">Female</option>
                     <option value="Male">Male</option>
                 </select>
             </div>
-
 
             <!-- Age at Diagnosis -->
             <div class="form-group">
@@ -179,6 +164,7 @@
                     <option value="biopsy-surgical">Surgical biopsy</option>
                 </select>
             </div>
+
             <!-- Extrapulmonary Affectation -->
             <div class="form-group">
                 <label class="label">Does the patient have any extrapulmonary manifestations?</label>
@@ -269,6 +255,92 @@
                     <input type="number" id="GGT" name="GGT" class="input">
                 </div>
             </div>
+
+            <!-- Lung Function Tests -->
+            <div class="form-group">
+                <label class="label">FVC (%) at diagnosis:</label>
+                <input type="number" id="FVC" class="input" name="FVC" placeholder="Enter FVC (%)">
+            </div>
+            <div class="form-group">
+                <label class="label">What is the patient's FVC (%) at diagnosis?</label>
+                <input type="number" id="DLCO" class="input" name="DLCO" placeholder="Enter DLCO (%)">
+            </div>
+
+            <!-- Radiological Progression -->
+            <div class="form-group">
+                <label class="label">RadioWorsening2y: Did the patient's radiology worsen within two years?</label>
+                <select id="RadioWorsening2y" class="input" name="RadioWorsening2y">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+            <!-- Outcome -->
+            <div class="form-group">
+                <label class="label">Death: Has the patient died?</label>
+                <select id="Death" class="input" name="Death">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+            <!-- Family History -->
+            <div class="form-group">
+                <label class="label">1st degree relative: Does the patient have a first-degree relative with similar conditions?</label>
+                <select id="FirstDegreeRelative" class="input" name="FirstDegreeRelative">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="label">2nd degree relative: Does the patient have a second-degree relative with similar conditions?</label>
+                <select id="SecondDegreeRelative" class="input" name="SecondDegreeRelative">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="label">More than 1 relative: Does the patient have more than one relative with similar conditions?</label>
+                <select id="MoreThanOneRelative" class="input" name="MoreThanOneRelative">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+            <!-- Genetic Information -->
+            <div class="form-group">
+                <label class="label">Genetic mutation studied in patient: Has a genetic mutation been identified in the patient?</label>
+                <select id="GeneticMutation" class="input" name="GeneticMutation">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="label">Severity of telomere shortening: What is the severity of telomere shortening in the patient?</label>
+                <select id="TelomereShorteningSeverity" class="input" name="TelomereShorteningSeverity">
+                    <option value="none">None</option>
+                    <option value="mild">Mild</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="severe">Severe</option>
+                </select>
+            </div>
+
+            <!-- Disease Progression -->
+            <div class="form-group">
+                <label class="label">Progressive disease: Has the patient's disease progressed?</label>
+                <select id="ProgressiveDisease" class="input" name="ProgressiveDisease">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="label">Progression: Is the patient currently experiencing disease progression?</label>
+                <select id="CurrentProgression" class="input" name="CurrentProgression">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
 
             
         </div>
