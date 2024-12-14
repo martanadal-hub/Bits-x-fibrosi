@@ -1,0 +1,41 @@
+'Pedigree':
+ 'Sex':
+ 'FamilialvsSporadic':
+ 'NHC':
+ 'Age at diagnosis':
+ 'Swab':
+ 'Blood'
+ 'Binary diagnosis':
+ 'Final diagnosis':
+ 'TOBACCO':
+ 'Detail':
+ 'Comorbidities':
+ 'Radiological Pattern':
+ 'Detail on NON UIP':
+ 'Biopsy':
+ 'Pathology Pattern Binary':
+ 'Pathology pattern UIP, probable or CHP':
+ 'Pathology pattern':
+ 'Extras AP':
+ 'Diagnosis after Biopsy', 'Multidsciplinary committee',
+       'Pirfenidone', 'Nintedanib', 'Antifibrotic Drug', 'Prednisone',
+       'Mycophenolate', 'Treatment', 'Extrapulmonary affectation',
+       'Type of telomeric extrapulmonary affectation', 'Extra',
+       'Associated lung cancer', 'Other cancer', 'Type of neoplasia',
+       'Hematological abnormality before diagnosis',
+       'Blood count abnormality at diagnosis', 'Anemia', 'Thrombocytopenia',
+       'Thrombocytosis', 'Lymphocytosis', 'Lymphopenia', 'Neutrophilia',
+       'Neutropenia', 'Leukocytosis', 'Leukopenia', 'Hematologic Disease',
+       'Liver abnormality before diagnosis', 'Liver abnormality', 'LDH', 'ALT',
+       'AST', 'ALP', 'GGT', 'Transaminitis', 'Cholestasis',
+       'Type of liver abnormality', 'Liver disease', 'FVC (L) at diagnosis',
+       'FVC (%) at diagnosis', 'DLCO (%) at diagnosis',
+       'FVC (L) 1 year after diagnosis', 'FVC (%) 1 year after diagnosis',
+       'DLCO (%) 1 year after diagnosis', 'RadioWorsening2y',
+       'Necessity of transplantation', 'Transplantation date', 'Death',
+       'Cause of death', 'Identified Infection', 'Date of death',
+       'Type of family history', '1st degree relative', '2nd degree relative',
+       'More than 1 relative', 'Genetic mutation studied in patient',
+       'Mutation Type', 'Severity of telomere shortening',
+       'Severity of telomere shortening - Transform 4', 'Progressive disease',
+       'ProgressiveDisease', 'Patient_ID']
