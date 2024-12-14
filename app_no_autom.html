@@ -176,35 +176,35 @@
 
             <!-- Cancer History -->
             <div class="form-group">
-                <label class="label">Associated lung cancer: Does the patient have associated lung cancer?</label>
+                <label class="label">Does the patient have associated lung cancer?</label>
                 <select id="LungCancer" class="input" name="LungCancer">
                     <option value="no">No</option>
                     <option value="yes">Yes</option>
                 </select>
             </div>
             <div class="form-group">
-                <label class="label">Other cancer: Does the patient have a history of other cancers?</label>
+                <label class="label">Does the patient have a history of other cancers?</label>
                 <select id="OtherCancer" class="input" name="OtherCancer">
                     <option value="no">No</option>
                     <option value="yes">Yes</option>
                 </select>
             </div>
             <div class="form-group">
-                <label class="label">Type of neoplasia: If the patient has a history of cancer, specify the type of neoplasia.</label>
+                <label class="label">If the patient has a history of cancer, specify the type of neoplasia.</label>
                 <input type="text" id="NeoplasiaType" class="input" name="NeoplasiaType">
             </div>
 
             <!-- Hematological Abnormalities -->
             <div class="form-group">
                 <label class="label">Did the patient have hematological abnormalities before diagnosis?</label>
-                <select id="HematologicAbnormalities" class="input" name="HematologicAbnormalities">
+                <select id="HematologicAbnormalities" class="input" name="HematologicAbnormalities[]" multiple>
                     <option value="no">No</option>
                     <option value="yes">Yes</option>
                 </select>
             </div>
             <div class="form-group">
                 <label class="label">Select the blood count abnormalities observed in the patient:</label>
-                <select id="BloodCountAbnormalities" class="input" name="BloodCountAbnormalities" multiple>
+                <select id="BloodCountAbnormalities" class="input" name="BloodCountAbnormalities[]" multiple>
                     <option value="anemia">Anemia</option>
                     <option value="thrombocytopenia">Thrombocytopenia</option>
                     <option value="thrombocytosis">Thrombocytosis</option>
@@ -216,6 +216,9 @@
                     <option value="leukopenia">Leukopenia</option>
                 </select>
             </div>
+
+
+            <!-- Hematological Disease -->
             <div class="form-group">
                 <label class="label">Does the patient have any hematological disease?</label>
                 <select id="HematologicDisease" class="input" name="HematologicDisease">
