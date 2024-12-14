@@ -93,8 +93,9 @@
         }
         .error-message {
             color: #dc2626;
-            margin: 10px 0;
+            margin-top: 8px;
             font-size: 14px;
+            display: none;
         }
     </style>
 </head>
@@ -110,6 +111,7 @@
             <div id="user-form-section">
                 <label class="label" for="codNumber">Introdueix el teu Codi d'Usuari</label>
                 <input type="text" id="codNumber" class="input" placeholder="Codi d'usuari">
+                <p class="error-message" id="user-error">Si us plau, introdueix el teu codi d'usuari.</p>
                 <button type="button" id="identifyButton" class="button">Continuar</button>
             </div>
 
@@ -156,6 +158,7 @@
                     <p id="slider-value">Valor: 0</p>
                 </div>
 
+                <p class="error-message" id="form-error">Si us plau, completa totes les preguntes abans d'enviar.</p>
                 <button type="submit" class="button">Enviar Dades</button>
             </form>
         </div>
@@ -169,6 +172,9 @@
         const userInfo = document.getElementById('user-info');
         const slider = document.getElementById('variable3');
         const sliderValue = document.getElementById('slider-value');
+        const pulmoImage = document.getElementById('pulmo-image');
+        const userError = document.getElementById('user-error');
+        const formError = document.getElementById('form-error');
 
         // Actualitzar el valor del slider
         slider.addEventListener('input', (e) => {
@@ -182,19 +188,43 @@
                 userFormSection.style.display = 'none';
                 predictorForm.style.display = 'block';
                 userInfo.textContent = `Usuari: ${userCode}`;
+                pulmoImage.style.display = 'none';
+                userError.style.display = 'none'; // Amaga l'error
             } else {
-                alert("Introdueix el teu codi d'usuari.");
+                userError.style.display = 'block'; // Mostra l'error
+            }
+        });
+
+        codNumberInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                identifyButton.click(); // Simula un clic al botó
             }
         });
 
         // Enviar dades al servidor Flask
         predictorForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            const variable1 = document.querySelector('input[name="variable1"]:checked')?.value;
+            const variable2 = document.querySelector('input[name="variable2"]:checked')?.value;
+            const variable3 = slider.value;
+
+            let isValid = true;
+
+            // Validar que totes les dades estiguin completades
+            if (!variable1 || !variable2 || variable3 === '0') {
+                formError.style.display = 'block'; // Mostra l'error
+                return;
+            } else {
+                formError.style.display = 'none'; // Amaga l'error
+            }
+
             const formData = {
                 usuari: codNumberInput.value.trim(),
-                variable1: document.querySelector('input[name="variable1"]:checked')?.value,
-                variable2: document.querySelector('input[name="variable2"]:checked')?.value,
-                variable3: document.getElementById('variable3').value
+                variable1,
+                variable2,
+                variable3
             };
 
             const response = await fetch('/save-excel', {
@@ -209,6 +239,7 @@
                 alert('Hi ha hagut un problema en enviar les dades.');
             }
         });
+        
     </script>
 </body>
 </html>
