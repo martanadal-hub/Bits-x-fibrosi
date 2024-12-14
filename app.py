@@ -15,17 +15,7 @@ if not os.path.exists(SAVE_FOLDER):
 model = load('model_logistic_regression_progression.pkl')
 print("Model carregat correctament.")
 
-codificacions = {
-    'variable2': {
-        'option1': 1,
-        'option2': 2,
-        'option3': 0
-    },
-    'variable1': {
-        'yes': 1,
-        'no': 0
-    }
-}
+model_variables = ['Pedigree', 'sex', 'Age at diagnosis', 'FinalDiagnosis', 'TobaccoHistory']
 
 # Ruta per a la pàgina principal
 @app.route('/')
@@ -42,9 +32,14 @@ def save_excel():
         if not data:
             return jsonify({'error': 'No hi ha dades per guardar.'}), 400
         
-        # Codifica les variables
-        data['variable1'] = codificacions['variable1'].get(data.get('variable1'), -1)  # Valors no definits es codifiquen com -1
-        data['variable2'] = codificacions['variable2'].get(data.get('variable2'), -1)
+        # Codificar les dades de l'usuari
+        tobacco_mapping = {
+            'No history of smoking': 0,
+            'Active smoker': 1,
+            'Ex-smoker': 2
+        }
+
+        data['TobaccoHistory'] = tobacco_mapping.get(data.get('TobaccoHistory'), -1)
 
         # Crear o carregar el fitxer Excel
         filepath = os.path.join(SAVE_FOLDER, 'respostes_questionari.xlsx')
@@ -62,26 +57,29 @@ def save_excel():
 
         # Afegir els encapçalaments si no existeixen
         if sheet.max_row == 1 and all(cell.value is None for cell in sheet[1]):
-            sheet.append(['Usuari', 'Variable 1', 'Variable 2', 'Variable 3', 'Predicció'])
+            sheet.append(['Usuari', 'Pedigree', 'Sex', 'Age at diagnosis', 'FinalDiagnosis', 'TobaccoHistory', 'Predicció'])
 
         # Afegir la nova fila amb les dades i la predicció
-        variables = ['variable1', 'variable2', 'variable3']
-        user_input = [data.get(var) for var in ['usuari'] + variables]
+        df_input = pd.DataFrame([data], columns=model_variables)
+        df_input = df_input[model_variables]
 
         # Preprocessar les dades noves per predicció
-        df_input = pd.DataFrame([data], columns=['variable1', 'variable2', 'variable3'])
         df_input = pd.get_dummies(df_input, drop_first=True)
 
-        # Afegir columnes que falten i reordenar-les
-        model_columns = [col for col in sheet[1] if col.value not in ['Usuari', 'Predicció']]
-        for col in model_columns:
-            if col not in df_input.columns:
-                df_input[col] = 0
-        df_input = df_input[model_columns]
-
+        # Preprocessar les dades noves per predicció
         prediction = model.predict(df_input)[0]
-        user_input.append(prediction)
+        print(f"Predicció: {prediction}")  # Per depuració
 
+        # Afegir la nova fila amb les dades i la predicció
+        user_input = [
+            data.get('usuari'),
+            data.get('Pedigree'),
+            data.get('sex'),
+            data.get('Age at diagnosis'),
+            data.get('FinalDiagnosis'),
+            data.get('TobaccoHistory'),
+            prediction
+        ]
         sheet.append(user_input)
 
         # Guardar l'Excel
