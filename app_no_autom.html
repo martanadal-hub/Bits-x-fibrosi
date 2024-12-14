@@ -206,7 +206,7 @@
 
             <div class="form-group">
                 <label class="label">Select the blood count abnormalities observed in the patient:</label>
-                <select id="BloodCountAbnormalities" class="input" name="BloodCountAbnormalities[]" multiple size="6">
+                <select id="BloodCountAbnormalities" class="input" name="BloodCountAbnormalities[]" multiple size="9">
                     <option value="anemia">Anemia</option>
                     <option value="thrombocytopenia">Thrombocytopenia</option>
                     <option value="thrombocytosis">Thrombocytosis</option>
@@ -229,85 +229,50 @@
 
             <!-- Liver Function -->
             <div class="form-group">
-                <label class="label">Liver abnormality before diagnosis:</label>
+                <label class="label">Did the patient have any liver abnormality before diagnosis?</label>
                 <select id="LiverAbnormalityBefore" class="input" name="LiverAbnormalityBefore">
                     <option value="no">No</option>
                     <option value="yes">Yes</option>
                 </select>
             </div>
+
             <div class="form-group">
-                <label class="label">What are the patient's values for the following liver function tests?</label>
-                <div>
-                    <label for="ldh">LDH:</label>
-                    <input type="number" id="LDH" name="LDH" class="input">
-                </div>
-                <div>
-                    <label for="alt">ALT:</label>
-                    <input type="number" id="ALT" name="ALT" class="input">
-                </div>
-                <div>
-                    <label for="ast">AST:</label>
-                    <input type="number" id="AST" name="AST" class="input">
-                </div>
-                <div>
-                    <label for="alp">ALP:</label>
-                    <input type="number" id="ALP" name="ALP" class="input">
-                </div>
-                <div>
-                    <label for="ggt">GGT:</label>
-                    <input type="number" id="GGT" name="GGT" class="input">
-                </div>
+                <label class="label">Which of the following liver function tests does the patient have?</label>
+                <select id="liverfunctiontests" class="input" name="liverfunctiontests[]" multiple size="5">
+                    <option value="LDH">LDH</option>
+                    <option value="ALT">ALT</option>
+                    <option value="AST">AST</option>
+                    <option value="ALP">ALP</option>
+                    <option value="GGT">GGT</option>
+                </select>
             </div>
 
             <!-- Lung Function Tests -->
             <div class="form-group">
-                <label class="label">FVC (%) at diagnosis:</label>
+                <label class="label">What is the patient's FVC (%) at diagnosis?</label>
                 <input type="number" id="FVC" class="input" name="FVC" placeholder="Enter FVC (%)">
             </div>
+
             <div class="form-group">
-                <label class="label">What is the patient's FVC (%) at diagnosis?</label>
+                <label class="label">What is the patient's DLCO (%) at diagnosis?</label>
                 <input type="number" id="DLCO" class="input" name="DLCO" placeholder="Enter DLCO (%)">
             </div>
 
-            <!-- Radiological Progression -->
-            <div class="form-group">
-                <label class="label">Did the patient's radiology worsen within two years?</label>
-                <select id="RadioWorsening2y" class="input" name="RadioWorsening2y">
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                </select>
-            </div>
-
-            <!-- Outcome -->
-            <div class="form-group">
-                <label class="label">Has the patient died?</label>
-                <select id="Death" class="input" name="Death">
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                </select>
-            </div>
-
             <!-- Family History -->
+
             <div class="form-group">
-                <label class="label">Does the patient have a first-degree relative with similar conditions?</label>
-                <select id="FirstDegreeRelative" class="input" name="FirstDegreeRelative">
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                </select>
+                <label class="label">How many first-degree relatives does the patient have with similar conditions?</label>
+                <input type="number" id="FirstDegreeRelative" class="input" name="FirstDegreeRelative" placeholder="Enter a number">
             </div>
+
             <div class="form-group">
-                <label class="label">Does the patient have a second-degree relative with similar conditions?</label>
-                <select id="SecondDegreeRelative" class="input" name="SecondDegreeRelative">
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                </select>
+                <label class="label">How many second-degree relatives does the patient have with similar conditions?</label>
+                <input type="number" id="SecondDegreeRelative" class="input" name="SecondDegreeRelative" placeholder="Enter a number">
             </div>
+
             <div class="form-group">
-                <label class="label">Does the patient have more than one relative with similar conditions?</label>
-                <select id="MoreThanOneRelative" class="input" name="MoreThanOneRelative">
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                </select>
+                <label class="label">How many more relatives does the patient have with similar conditions?</label>
+                <input type="number" id="MoreThanOneRelative" class="input" name="MoreThanOneRelative" placeholder="Enter a number">
             </div>
 
             <!-- Genetic Information -->
@@ -318,34 +283,11 @@
                     <option value="yes">Yes</option>
                 </select>
             </div>
+
             <div class="form-group">
                 <label class="label">What is the severity of telomere shortening in the patient?</label>
-                <select id="TelomereShorteningSeverity" class="input" name="TelomereShorteningSeverity">
-                    <option value="none">None</option>
-                    <option value="mild">Mild</option>
-                    <option value="moderate">Moderate</option>
-                    <option value="severe">Severe</option>
-                </select>
+                <input type="number" id="TelomereShorteningSeverity" class="input" name="TelomereShorteningSeverity" placeholder="Enter a number">
             </div>
-
-            <!-- Disease Progression -->
-            <div class="form-group">
-                <label class="label">Has the patient's disease progressed?</label>
-                <select id="ProgressiveDisease" class="input" name="ProgressiveDisease">
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="label">Is the patient currently experiencing disease progression?</label>
-                <select id="CurrentProgression" class="input" name="CurrentProgression">
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                </select>
-            </div>
-
-
-            
         </div>
     </div>
 
