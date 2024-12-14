@@ -110,7 +110,7 @@
             <!-- Pedigree -->
             <div class="form-group">
                 <label class="label">What is the pedigree number for this patient?</label>
-                <input type="number" id="pedigree" class="input" name="Pedigree">
+                <input type="number" id="pedigree" class="input" name="Pedigree" laceholder="Enter a number">
             </div>
 
             <!-- Sex -->
@@ -130,14 +130,14 @@
 
             <!-- Age at Diagnosis -->
             <div class="form-group">
-                <label class="label">Age at Diagnosis</label>
-                <input type="number" id="age-diagnosis" class="input" name="Age at diagnosis">
+                <label class="label">What is the age of the patient?</label>
+                <input type="number" id="age-diagnosis" class="input" name="Age at diagnosis" laceholder="Enter a number">
             </div>
 
             <!-- Final Diagnosis -->
             <div class="form-group">
-                <label class="label">Final Diagnosis (Numeric Code)</label>
-                <input type="number" id="final-diagnosis" class="input" name="Final diagnosis" placeholder="Enter a numeric code">
+                <label class="label">What is the final diagnosis?</label>
+                <input type="number" id="final-diagnosis" class="input" name="Final diagnosis" placeholder="Enter a number">
             </div>
 
             <!-- Tobacco -->
@@ -145,28 +145,51 @@
                 <label class="label">Does the patient have a history of smoking?</label>
                 <div class="radio-group">
                     <div class="radio-option">
-                        <input type="radio" name="TOBACCO" id="tobacco-yes" value="Yes">
-                        <label for="tobacco-yes">Yes</label>
+                        <input type="radio" name="TOBACCO" id="tobacco-no" value="0">
+                        <label for="tobacco-no">0 - No history of smoking</label>
                     </div>
                     <div class="radio-option">
-                        <input type="radio" name="TOBACCO" id="tobacco-no" value="No">
-                        <label for="tobacco-no">No</label>
+                        <input type="radio" name="TOBACCO" id="tobacco-active" value="1">
+                        <label for="tobacco-active">1 - Active smoker</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="TOBACCO" id="tobacco-ex" value="2">
+                        <label for="tobacco-ex">2 - Ex-smoker</label>
                     </div>
                 </div>
             </div>
 
             <!-- Radiological Pattern -->
             <div class="form-group">
-                <label class="label">Radiological Pattern</label>
+                <label class="label">What is the radiological pattern observed in the patient?</label>
                 <select id="radiological-pattern" class="input" name="Radiological Pattern">
                     <option value="UIP">UIP</option>
                     <option value="Probable UIP">Probable UIP</option>
                     <option value="Non UIP">Non UIP</option>
-                    <option value="Other">Other</option>
+                    <option value="Indeterminate UIP">Indeterminate UIP</option>
                 </select>
             </div>
 
-            <!-- Remaining Form Elements... -->
+            <!-- Biopsy -->
+            <div class="form-group">
+                <label class="label">Type of Biopsy Performed</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="Biopsy" id="biopsy-none" value="0">
+                        <label for="biopsy-none">No biopsy</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="Biopsy" id="biopsy-endoscopic" value="1">
+                        <label for="biopsy-endoscopic">Endoscopic cryobiopsy</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="Biopsy" id="biopsy-surgical" value="2">
+                        <label for="biopsy-surgical">Surgical biopsy</label>
+                    </div>
+                </div>
+            </div>
+
+            
         </div>
     </div>
 
