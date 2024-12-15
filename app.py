@@ -12,8 +12,115 @@ if not os.path.exists(SAVE_FOLDER):
     os.makedirs(SAVE_FOLDER)
 
 # Carregar el model entrenat
-model = load('model_death.pkl')
-print("Model carregat correctament.")
+model_path = 'model_death.pkl'
+if os.path.exists(model_path):
+    model = load(model_path)
+    print("Model carregat correctament.")
+else:
+    raise FileNotFoundError(f"El fitxer del model '{model_path}' no s'ha trobat.")
+
+# Variables esperades pel model (assegura't que aquestes coincideixen amb les del model entrenat)
+model_variables = [
+    'Pedigree', 'sex', 'Age at diagnosis', 'FinalDiagnosis', 
+    'TobaccoHistory', 'RadiologicalPattern', 'Biopsy',
+    'Extrapulmonary', 'LungCancer', 'OtherCancer', 'NeoplasiaType',
+    'HematologicAbnormalities', 'BloodCountAbnormalities', 
+    'HematologicDiseaseConfirm', 'HematologicDiseaseTypes', 
+    'LiverAbnormalityBefore', 'LiverAbnormality', 'LiverDisease',
+    'LDH', 'ALT', 'AST', 'ALP', 'GGT', 'Transaminitis', 'Cholestasis',
+    'FVC', 'DLCO', 'FirstDegreeRelative', 'SecondDegreeRelative',
+    'MoreThanOneRelative', 'GeneticMutation', 'MutationType', 
+    'TelomereShorteningSeverity'
+]
+
+# Definir mapejos per a les variables categòriques
+pedigree_mapping = {
+    '1': 1,  # Suposant '1' és 'Familial'
+    '0': 0   # Suposant '0' és 'Sporadic'
+}
+
+sex_mapping = {
+    'Male': 1,
+    'Female': 0
+}
+
+final_diagnosis_mapping = {
+    'No IPF': 0,
+    'IPF': 1,
+    'CHP': 2,
+    'SRIF': 3,
+    'NSIP': 4,
+    'CPFE': 5,
+    'PF-CTD (RA)': 6,
+    'PF-CTD (SLE)': 7,
+    'Incipient': 8,
+    'Other': 9  # Afegir altres diagnoses si escau
+}
+
+radiological_pattern_mapping = {
+    'Non UIP': 0,
+    'UIP': 1,
+    'Indeterminate UIP': 2,
+    'Probable UIP': 3,
+    'Unknown': 4  # Afegir altres patterns si escau
+}
+
+tobacco_mapping = {
+    'No history of smoking': 0,
+    'Active smoker': 1,
+    'Ex-smoker': 2,
+    'Unknown': -1  # Assignar -1 per a casos no reconeguts
+}
+
+biopsy_mapping = {
+    'biopsy-none': 0,
+    'biopsy-endoscopic': 1,
+    'biopsy-surgical': 2,
+    'Unknown': -1  # Assignar -1 per a casos no reconeguts
+}
+
+extrapulmonary_mapping = {
+    'no': 0,
+    'yes': 1
+}
+
+cancer_mapping = {
+    'no': 0,
+    'yes': 1
+}
+
+hematologic_abnormalities_mapping = {
+    'no': 0,
+    'yes': 1
+}
+
+hematologic_disease_confirm_mapping = {
+    'no': 0,
+    'yes': 1
+}
+
+liver_abnormality_before_mapping = {
+    'no': 0,
+    'yes': 1
+}
+
+liver_abnormality_mapping = {
+    'no': 0,
+    'yes': 1
+}
+
+liver_disease_mapping = {
+    'no': 0,
+    'yes': 1
+}
+
+telomere_shortening_mapping = {
+    'none': 0,
+    'mild': 1,
+    'moderate': 2,
+    'severe': 3,
+    'unknown': -1  # Assignar -1 per a casos no reconeguts
+}
 
 # Ruta per a la pàgina principal
 @app.route('/')
@@ -30,11 +137,134 @@ def save_excel():
         if not data:
             return jsonify({'error': 'No hi ha dades per guardar.'}), 400
 
-        # Convert lists to strings
-        data['NeoplasiaType'] = ', '.join(data.get('NeoplasiaType', []))
-        data['BloodCountAbnormalities'] = ', '.join(data.get('BloodCountAbnormalities', []))
-        data['HematologicDiseaseTypes'] = ', '.join(data.get('HematologicDiseaseTypes', []))
-        data['MutationType'] = ', '.join(data.get('MutationType', []))
+        # Convertir les llistes a strings, o usar 'None' si estan buides
+        data['NeoplasiaType'] = ', '.join(data.get('NeoplasiaType', ['None']))
+        data['BloodCountAbnormalities'] = ', '.join(data.get('BloodCountAbnormalities', ['None']))
+        data['HematologicDiseaseTypes'] = ', '.join(data.get('HematologicDiseaseTypes', ['None']))
+        data['MutationType'] = ', '.join(data.get('MutationType', ['None']))
+
+        # Codificar les dades de l'usuari
+        encoded_data = {}
+
+        # Codificar 'Pedigree'
+        pedigree = data.get('Pedigree', '0')  # Suposant '0' és 'Sporadic' per defecte
+        encoded_data['Pedigree'] = pedigree_mapping.get(pedigree, -1)
+
+        # Codificar 'sex'
+        sex = data.get('sex', 'Male')  # Suposant 'Male' per defecte
+        encoded_data['sex'] = sex_mapping.get(sex, -1)
+
+        # 'Age at diagnosis' assumeixo que és numèric
+        age = data.get('Age at diagnosis', None)
+        if age is not None:
+            try:
+                encoded_data['Age at diagnosis'] = float(age)
+            except ValueError:
+                encoded_data['Age at diagnosis'] = -1  # Assignar -1 per a dades no vàlides
+        else:
+            encoded_data['Age at diagnosis'] = -1  # Assignar -1 per a dades faltants
+
+        # Codificar 'FinalDiagnosis'
+        final_diagnosis = data.get('FinalDiagnosis', 'Other')
+        encoded_data['FinalDiagnosis'] = final_diagnosis_mapping.get(final_diagnosis, 9)
+
+        # Codificar 'TobaccoHistory'
+        tobacco_history = data.get('TobaccoHistory', 'Unknown')
+        encoded_data['TobaccoHistory'] = tobacco_mapping.get(tobacco_history, -1)
+
+        # Codificar 'RadiologicalPattern'
+        radiological_pattern = data.get('RadiologicalPattern', 'Unknown')
+        encoded_data['RadiologicalPattern'] = radiological_pattern_mapping.get(radiological_pattern, 4)
+
+        # Codificar 'Biopsy'
+        biopsy = data.get('Biopsy', 'Unknown')
+        encoded_data['Biopsy'] = biopsy_mapping.get(biopsy, -1)
+
+        # Codificar 'Extrapulmonary'
+        extrapulmonary = data.get('Extrapulmonary', 'no')
+        encoded_data['Extrapulmonary'] = extrapulmonary_mapping.get(extrapulmonary.lower(), -1)
+
+        # Codificar 'LungCancer'
+        lung_cancer = data.get('LungCancer', 'no')
+        encoded_data['LungCancer'] = cancer_mapping.get(lung_cancer.lower(), -1)
+
+        # Codificar 'OtherCancer'
+        other_cancer = data.get('OtherCancer', 'no')
+        encoded_data['OtherCancer'] = cancer_mapping.get(other_cancer.lower(), -1)
+
+        # Codificar 'NeoplasiaType'
+        encoded_data['NeoplasiaType'] = data.get('NeoplasiaType', 'None')
+
+        # Codificar 'HematologicAbnormalities'
+        hematologic_abnormalities = data.get('HematologicAbnormalities', 'no')
+        encoded_data['HematologicAbnormalities'] = hematologic_abnormalities_mapping.get(hematologic_abnormalities.lower(), -1)
+
+        # Codificar 'BloodCountAbnormalities'
+        encoded_data['BloodCountAbnormalities'] = data.get('BloodCountAbnormalities', 'None')
+
+        # Codificar 'HematologicDiseaseConfirm'
+        hematologic_disease_confirm = data.get('HematologicDiseaseConfirm', 'no')
+        encoded_data['HematologicDiseaseConfirm'] = hematologic_disease_confirm_mapping.get(hematologic_disease_confirm.lower(), -1)
+
+        # Codificar 'HematologicDiseaseTypes'
+        encoded_data['HematologicDiseaseTypes'] = data.get('HematologicDiseaseTypes', 'None')
+
+        # Codificar 'LiverAbnormalityBefore'
+        liver_abnormality_before = data.get('LiverAbnormalityBefore', 'no')
+        encoded_data['LiverAbnormalityBefore'] = liver_abnormality_before_mapping.get(liver_abnormality_before.lower(), -1)
+
+        # Codificar 'LiverAbnormality'
+        liver_abnormality = data.get('LiverAbnormality', 'no')
+        encoded_data['LiverAbnormality'] = liver_abnormality_mapping.get(liver_abnormality.lower(), -1)
+
+        # Codificar 'LiverDisease'
+        liver_disease = data.get('LiverDisease', 'no')
+        encoded_data['LiverDisease'] = liver_disease_mapping.get(liver_disease.lower(), -1)
+
+        # Codificar 'LDH', 'ALT', 'AST', 'ALP', 'GGT', 'Transaminitis', 'Cholestasis'
+        # Aquí assumirem que 'normal' = 0, i altres valors poden ser mapejats si escau
+        lab_mapping = {
+            'normal': 0,
+            'abnormal': 1,
+            # Afegir altres valors si escau
+        }
+        lab_variables = ['LDH', 'ALT', 'AST', 'ALP', 'GGT', 'Transaminitis', 'Cholestasis']
+        for lab in lab_variables:
+            value = data.get(lab, 'normal').lower()
+            encoded_data[lab] = lab_mapping.get(value, -1)
+
+        # 'FVC' i 'DLCO' són numèrics
+        try:
+            encoded_data['FVC'] = float(data.get('FVC', '0'))
+        except ValueError:
+            encoded_data['FVC'] = -1
+
+        try:
+            encoded_data['DLCO'] = float(data.get('DLCO', '0'))
+        except ValueError:
+            encoded_data['DLCO'] = -1
+
+        # Codificar 'FirstDegreeRelative', 'SecondDegreeRelative', 'MoreThanOneRelative'
+        relative_mapping = {
+            'no': 0,
+            'yes': 1
+        }
+        encoded_data['FirstDegreeRelative'] = relative_mapping.get(data.get('FirstDegreeRelative', 'no').lower(), -1)
+        encoded_data['SecondDegreeRelative'] = relative_mapping.get(data.get('SecondDegreeRelative', 'no').lower(), -1)
+        encoded_data['MoreThanOneRelative'] = relative_mapping.get(data.get('MoreThanOneRelative', 'no').lower(), -1)
+
+        # Codificar 'GeneticMutation'
+        genetic_mutation = data.get('GeneticMutation', 'no')
+        encoded_data['GeneticMutation'] = relative_mapping.get(genetic_mutation.lower(), -1)
+
+        # Codificar 'MutationType'
+        encoded_data['MutationType'] = data.get('MutationType', 'None')
+
+        # Codificar 'TelomereShorteningSeverity'
+        telomere_shortening = data.get('TelomereShorteningSeverity', 'none').lower()
+        encoded_data['TelomereShorteningSeverity'] = telomere_shortening_mapping.get(telomere_shortening, -1)
+
+        print(f"Dades codificades: {encoded_data}")  # Per depuració
 
         # Crear o carregar el fitxer Excel
         filepath = os.path.join(SAVE_FOLDER, 'respostes_questionari.xlsx')
@@ -52,34 +282,96 @@ def save_excel():
 
         # Afegir els encapçalaments si no existeixen
         if sheet.max_row == 1 and all(cell.value is None for cell in sheet[1]):
-            sheet.append(list(data.keys()) + ['Predicció'])
+            headers = [
+                'Usuari', 'Pedigree', 'sex', 'Age at diagnosis', 'FinalDiagnosis', 
+                'TobaccoHistory', 'RadiologicalPattern', 'Biopsy',
+                'Extrapulmonary', 'LungCancer', 'OtherCancer', 'NeoplasiaType',
+                'HematologicAbnormalities', 'BloodCountAbnormalities', 
+                'HematologicDiseaseConfirm', 'HematologicDiseaseTypes', 
+                'LiverAbnormalityBefore', 'LiverAbnormality', 'LiverDisease',
+                'LDH', 'ALT', 'AST', 'ALP', 'GGT', 'Transaminitis', 'Cholestasis',
+                'FVC', 'DLCO', 'FirstDegreeRelative', 'SecondDegreeRelative',
+                'MoreThanOneRelative', 'GeneticMutation', 'MutationType', 
+                'TelomereShorteningSeverity', 'Predicció'
+            ]
+            sheet.append(headers)
 
         # Afegir la nova fila amb les dades
-        sheet.append(list(data.values()))
+        user = data.get('usuari', 'Desconegut')
+        row = [
+            user,
+            encoded_data['Pedigree'],
+            encoded_data['sex'],
+            encoded_data['Age at diagnosis'],
+            encoded_data['FinalDiagnosis'],
+            encoded_data['TobaccoHistory'],
+            encoded_data['RadiologicalPattern'],
+            encoded_data['Biopsy'],
+            encoded_data['Extrapulmonary'],
+            encoded_data['LungCancer'],
+            encoded_data['OtherCancer'],
+            encoded_data['NeoplasiaType'],
+            encoded_data['HematologicAbnormalities'],
+            encoded_data['BloodCountAbnormalities'],
+            encoded_data['HematologicDiseaseConfirm'],
+            encoded_data['HematologicDiseaseTypes'],
+            encoded_data['LiverAbnormalityBefore'],
+            encoded_data['LiverAbnormality'],
+            encoded_data['LiverDisease'],
+            encoded_data['LDH'],
+            encoded_data['ALT'],
+            encoded_data['AST'],
+            encoded_data['ALP'],
+            encoded_data['GGT'],
+            encoded_data['Transaminitis'],
+            encoded_data['Cholestasis'],
+            encoded_data['FVC'],
+            encoded_data['DLCO'],
+            encoded_data['FirstDegreeRelative'],
+            encoded_data['SecondDegreeRelative'],
+            encoded_data['MoreThanOneRelative'],
+            encoded_data['GeneticMutation'],
+            encoded_data['MutationType'],
+            encoded_data['TelomereShorteningSeverity']
+        ]
+        sheet.append(row)
 
         # Guardar l'Excel
         workbook.save(filepath)
 
-        # Convertir les dades a un DataFrame
-        df_input = pd.DataFrame([data])
+        # Crear DataFrame per a la predicció
+        df_input = pd.DataFrame([encoded_data], columns=model_variables)
 
-        # Aplicar One-Hot Encoding
-        df_input = pd.get_dummies(df_input, drop_first=True)
+        # Aplicar One-Hot Encoding per a variables com 'NeoplasiaType', 'BloodCountAbnormalities', 'HematologicDiseaseTypes', 'MutationType'
+        # Convertir-les a variables binàries (multi-label)
+        categorical_vars = ['NeoplasiaType', 'BloodCountAbnormalities', 'HematologicDiseaseTypes', 'MutationType']
+        for var in categorical_vars:
+            dummies = df_input[var].str.get_dummies(sep=', ')
+            df_input = pd.concat([df_input, dummies], axis=1)
+            df_input.drop(var, axis=1, inplace=True)
 
         # Ensure all columns expected by the model are present
-        model_columns = model.feature_names_in_
+        try:
+            # Intentar obtenir les columnes del model
+            model_columns = model.feature_names_in_
+        except AttributeError:
+            # Si el model no té 'feature_names_in_', usar les columnes del DataFrame
+            model_columns = df_input.columns
+
+        # Afegir columnes mancants amb valor 0
         missing_cols = set(model_columns) - set(df_input.columns)
         for col in missing_cols:
-            df_input[col] = 0  # Add missing columns with default value 0
+            df_input[col] = 0
 
-        df_input = df_input[model_columns]  # Reorder columns to match the model
+        # Reordenar les columnes per coincidir amb el model
+        df_input = df_input[model_columns]
 
         # Preprocessar les dades noves per predicció
         prediction = model.predict(df_input)[0]
         print(f"Predicció: {prediction}")  # Per depuració
 
         # Afegir la predicció a la fila corresponent al fitxer Excel
-        sheet.cell(row=sheet.max_row, column=len(data) + 1).value = prediction
+        sheet.cell(row=sheet.max_row, column=len(row) + 1).value = prediction
         workbook.save(filepath)
 
         return jsonify({'message': 'Dades guardades correctament i predicció feta.', 'predicció': int(prediction)}), 200
@@ -87,7 +379,6 @@ def save_excel():
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({'error': 'Hi ha hagut un problema en desar les dades o fer la predicció.'}), 500
-
 
 if __name__ == '__main__':
     app.run(debug=True)
