@@ -1,0 +1,50 @@
+
+RESULTATS DEL PRESENT PER LA PREDICCIÓ DE LA MORT
+
+Característiques del pacient seleccionat aleatòriament:
+Pedigree                                                    0
+Age at diagnosis                                         67.0
+Final diagnosis                                             1
+TOBACCO                                                     2
+Biopsy                                                    0.0
+                                                        ...  
+Type of neoplasia_Sigmoid ADK                           False
+Type of neoplasia_Small-Cell Lung Cancer                False
+Type of neoplasia_Squamous cell oropharyngeal cancer    False
+Type of neoplasia_Testicular cancer                     False
+Type of neoplasia_Unknown pulmonary nodule              False
+Name: 158, Length: 62, dtype: object
+
+Predicció del model: 1
+Etiqueta real: 1
+✅ Predicció CORRECTA
+
+RESULTATS DEL PRESENT PER AL SEGON MODEL
+
+Característiques del pacient seleccionat aleatòriament:
+DLCO (%) at diagnosis                    75.0
+FVC (%) at diagnosis                     69.4
+Age at diagnosis                         72.0
+Death                                       0
+Pedigree                                    0
+Severity of telomere shortening           4.0
+Final diagnosis                             1
+Genetic mutation studied in patient       0.0
+Biopsy                                    1.0
+Liver abnormality before diagnosis        0.0
+Sex_Male                                 True
+TOBACCO                                     2
+1st degree relative                         0
+Blood count abnormality at diagnosis      0.0
+Radiological Pattern_UIP                False
+More than 1 relative                        0
+Radiological Pattern_Non UIP            False
+LDH                                         0
+Radiological Pattern_Probable UIP        True
+Liver abnormality                         0.0
+Name: 118, dtype: object
+
+Predicció del model: 1
+Probabilitats per classe: [0.1591178 0.8408822]
+Etiqueta real: 1
+✅ Predicció CORRECTA
