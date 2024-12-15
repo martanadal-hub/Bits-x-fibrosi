@@ -56,10 +56,10 @@ def save_excel():
         }
 
         radiological_pattern_mapping = {
-            'UIP': 0,
-            'Probable UIP': 1,
-            'Non UIP': 2,
-            'Indeterminate UIP': 3
+            'UIP': 'UIP',
+            'Probable UIP': 'Probable UIP',
+            'Non UIP': 'Non UIP',
+            'Indeterminate UIP': 'Indeterminate UIP'
         }
 
         extrapulmonary_mapping = {
@@ -107,13 +107,6 @@ def save_excel():
             'yes': 1
         }
 
-        telomere_shortening_severity_mapping = {
-            'none': 0,
-            'mild': 1,
-            'moderate': 2,
-            'severe': 3
-        }
-
         data['TobaccoHistory'] = tobacco_mapping.get(data.get('TobaccoHistory'), -1)
         data['Biopsy'] = biopsy_mapping.get(data.get('Biopsy'), -1)
         data['RadiologicalPattern'] = radiological_pattern_mapping.get(data.get('RadiologicalPattern'), -1)
@@ -126,7 +119,6 @@ def save_excel():
         data['LiverAbnormality'] = liver_abnormality_mapping.get(data.get('LiverAbnormality'), -1)
         data['LiverDisease'] = liver_disease_mapping.get(data.get('LiverDisease'), -1)
         data['GeneticMutation'] = genetic_mutation_mapping.get(data.get('GeneticMutation'), -1)
-        data['TelomereShorteningSeverity'] = telomere_shortening_severity_mapping.get(data.get('TelomereShorteningSeverity'), -1)
 
         # Crear o carregar el fitxer Excel
         filepath = os.path.join(SAVE_FOLDER, 'respostes_questionari.xlsx')
