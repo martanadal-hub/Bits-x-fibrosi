@@ -29,54 +29,33 @@ model_variables = [
     'LiverAbnormalityBefore', 'LiverAbnormality', 'LiverDisease',
     'LDH', 'ALT', 'AST', 'ALP', 'GGT', 'Transaminitis', 'Cholestasis',
     'FVC', 'DLCO', 'FirstDegreeRelative', 'SecondDegreeRelative',
-    'MoreThanOneRelative', 'GeneticMutation', 'MutationType', 
+    'MoreThanOneRelative', 'GeneticMutation',  
     'TelomereShorteningSeverity'
 ]
 
 # Definir mapejos per a les variables categòriques
-pedigree_mapping = {
-    '1': 1,  # Suposant '1' és 'Familial'
-    '0': 0   # Suposant '0' és 'Sporadic'
-}
-
 sex_mapping = {
-    'Male': 1,
-    'Female': 0
-}
-
-final_diagnosis_mapping = {
-    'No IPF': 0,
-    'IPF': 1,
-    'CHP': 2,
-    'SRIF': 3,
-    'NSIP': 4,
-    'CPFE': 5,
-    'PF-CTD (RA)': 6,
-    'PF-CTD (SLE)': 7,
-    'Incipient': 8,
-    'Other': 9  # Afegir altres diagnoses si escau
-}
-
-radiological_pattern_mapping = {
-    'Non UIP': 0,
-    'UIP': 1,
-    'Indeterminate UIP': 2,
-    'Probable UIP': 3,
-    'Unknown': 4  # Afegir altres patterns si escau
+    'Dona': 'Male',
+    'Home': 'Female'
 }
 
 tobacco_mapping = {
-    'No history of smoking': 0,
-    'Active smoker': 1,
-    'Ex-smoker': 2,
-    'Unknown': -1  # Assignar -1 per a casos no reconeguts
+    'Sense antecedents de tabaquisme': 0,
+    'Fumador actiu': 1,
+    'Ex-fumat': 2
+}
+
+radiological_pattern_mapping = {
+    'Non UIP': 'Non UIP',
+    'UIP': 'UIP',
+    'Indeterminate UIP': 'Indeterminate UIP',
+    'Probable UIP': 'Probable UIP'
 }
 
 biopsy_mapping = {
-    'biopsy-none': 0,
-    'biopsy-endoscopic': 1,
-    'biopsy-surgical': 2,
-    'Unknown': -1  # Assignar -1 per a casos no reconeguts
+    'Sense biopsia': 0,
+    'Criobiòpsia endoscòpica': 1,
+    'Biopsia quirúrgica': 2
 }
 
 extrapulmonary_mapping = {
@@ -114,13 +93,19 @@ liver_disease_mapping = {
     'yes': 1
 }
 
-telomere_shortening_mapping = {
-    'none': 0,
-    'mild': 1,
-    'moderate': 2,
-    'severe': 3,
-    'unknown': -1  # Assignar -1 per a casos no reconeguts
+final_diagnosis_mapping = {
+    'No IPF': 0,
+    'IPF': 1,
+    'CHP': 2,
+    'SRIF': 3,
+    'NSIP': 4,
+    'CPFE': 5,
+    'PF-CTD (RA)': 6,
+    'PF-CTD (SLE)': 7,
+    'Incipient': 8,
+    'Other': 9  # Afegir altres diagnoses si escau
 }
+
 
 # Ruta per a la pàgina principal
 @app.route('/')
@@ -145,10 +130,6 @@ def save_excel():
 
         # Codificar les dades de l'usuari
         encoded_data = {}
-
-        # Codificar 'Pedigree'
-        pedigree = data.get('Pedigree', '0')  # Suposant '0' és 'Sporadic' per defecte
-        encoded_data['Pedigree'] = pedigree_mapping.get(pedigree, -1)
 
         # Codificar 'sex'
         sex = data.get('sex', 'Male')  # Suposant 'Male' per defecte
@@ -246,8 +227,8 @@ def save_excel():
 
         # Codificar 'FirstDegreeRelative', 'SecondDegreeRelative', 'MoreThanOneRelative'
         relative_mapping = {
-            'no': 0,
-            'yes': 1
+            'No': 0,
+            'Sí': 1
         }
         encoded_data['FirstDegreeRelative'] = relative_mapping.get(data.get('FirstDegreeRelative', 'no').lower(), -1)
         encoded_data['SecondDegreeRelative'] = relative_mapping.get(data.get('SecondDegreeRelative', 'no').lower(), -1)
@@ -256,13 +237,6 @@ def save_excel():
         # Codificar 'GeneticMutation'
         genetic_mutation = data.get('GeneticMutation', 'no')
         encoded_data['GeneticMutation'] = relative_mapping.get(genetic_mutation.lower(), -1)
-
-        # Codificar 'MutationType'
-        encoded_data['MutationType'] = data.get('MutationType', 'None')
-
-        # Codificar 'TelomereShorteningSeverity'
-        telomere_shortening = data.get('TelomereShorteningSeverity', 'none').lower()
-        encoded_data['TelomereShorteningSeverity'] = telomere_shortening_mapping.get(telomere_shortening, -1)
 
         print(f"Dades codificades: {encoded_data}")  # Per depuració
 
@@ -291,7 +265,7 @@ def save_excel():
                 'LiverAbnormalityBefore', 'LiverAbnormality', 'LiverDisease',
                 'LDH', 'ALT', 'AST', 'ALP', 'GGT', 'Transaminitis', 'Cholestasis',
                 'FVC', 'DLCO', 'FirstDegreeRelative', 'SecondDegreeRelative',
-                'MoreThanOneRelative', 'GeneticMutation', 'MutationType', 
+                'MoreThanOneRelative', 'GeneticMutation', 
                 'TelomereShorteningSeverity', 'Predicció'
             ]
             sheet.append(headers)
@@ -331,7 +305,6 @@ def save_excel():
             encoded_data['SecondDegreeRelative'],
             encoded_data['MoreThanOneRelative'],
             encoded_data['GeneticMutation'],
-            encoded_data['MutationType'],
             encoded_data['TelomereShorteningSeverity']
         ]
         sheet.append(row)
@@ -344,7 +317,7 @@ def save_excel():
 
         # Aplicar One-Hot Encoding per a variables com 'NeoplasiaType', 'BloodCountAbnormalities', 'HematologicDiseaseTypes', 'MutationType'
         # Convertir-les a variables binàries (multi-label)
-        categorical_vars = ['NeoplasiaType', 'BloodCountAbnormalities', 'HematologicDiseaseTypes', 'MutationType']
+        categorical_vars = ['NeoplasiaType', 'BloodCountAbnormalities', 'HematologicDiseaseTypes']
         for var in categorical_vars:
             dummies = df_input[var].str.get_dummies(sep=', ')
             df_input = pd.concat([df_input, dummies], axis=1)

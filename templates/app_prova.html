@@ -172,8 +172,8 @@
                     <select id="tobacco-history" class="input" name="TobaccoHistory">
                         <option value="">Selecciona</option>
                         <option value="No history of smoking">Sense antecedents de tabaquisme</option>
-                        <option value="Active smoker">Fumat actiu</option>
-                        <option value="Ex-smoker">Ex-fumat</option>
+                        <option value="Active smoker">Fumador actiu</option>
+                        <option value="Ex-smoker">Ex-fumador</option>
                     </select>
                     <p class="error-message" id="tobacco-error">Si us plau, selecciona l'historial de tabaquisme del pacient.</p>
                 </div>
@@ -273,8 +273,8 @@
                 </div>
 
                 <!-- Neoplasia Type -->
-                <div class="form-group hidden" id="NeoplasiaTypeGroup">
-                    <label class="label" for="NeoplasiaType">Si el pacient té historial de càncer, selecciona el tipus de neoplasia.</label>
+                <div class="form-group" id="NeoplasiaTypeGroup">
+                    <label class="label" for="NeoplasiaType">Selecciona el tipus de neoplasia.</label>
                     <p style="color: #2563eb; font-weight: 300;">Manté presionada la tecla Ctrl (Windows) o Cmd (macOS) per seleccionar múltiples opcions.</p>
                     <select id="NeoplasiaType" class="input" name="NeoplasiaType[]" multiple size="10">
                         <option value="Kaposi Sarcoma">Kaposi Sarcoma</option>
@@ -297,6 +297,8 @@
                         <option value="Bladder Cancer">Bladder Cancer</option>
                         <option value="Squamous cell oropharyngeal cancer">Squamous cell oropharyngeal cancer</option>
                         <option value="Sigmoid ADK">Sigmoid ADK</option>
+                        <option value="No">Cap</option>
+
                     </select>
                     <p class="error-message" id="neoplasia-error">Si us plau, selecciona almenys un tipus de neoplasia.</p>
                 </div>                
@@ -351,22 +353,6 @@
                         <option value="yes">Sí</option>
                     </select>
                     <p class="error-message" id="hematologic-confirm-error">Si us plau, selecciona una opció.</p>
-                </div>
-
-                <!-- Tipus de neoplàsia -->
-                <div class="form-group hidden" id="HematologicDiseaseTypesGroup">
-                    <label class="label" for="HematologicDiseaseTypes">Selecciona el tipus de neoplàsia hematològica.</label>
-                    <select id="HematologicDiseaseTypes" class="input" name="HematologicDiseaseTypes[]" multiple size="10">
-                        <option value="Thalassemia">Thalassemia</option>
-                        <option value="Polycytemia">Polycytemia</option>
-                        <option value="Linfoma folicular">Linfoma folicular</option>
-                        <option value="Sd mielodisplasico">Sd mielodisplasico</option>
-                        <option value="Thalassemia minor">Thalassemia minor</option>
-                        <option value="ANAA 1:80">ANAA 1:80</option>
-                        <option value="FR +">FR +</option>
-                        <option value="ANA 1:80">ANA 1:80</option>
-                    </select>
-                    <p class="error-message" id="hematologic-types-error">Si us plau, selecciona almenys una opció.</p>
                 </div>
 
                 <!-- Missatge d'error general del formulari -->
@@ -577,29 +563,17 @@
                     <p class="error-message" id="genetic-mutation-error">Si us plau, selecciona una opció.</p>
                 </div>
 
-                <!-- Mutation Type (ocult inicialment) -->
-                <div class="form-group hidden" id="MutationTypeGroup">
-                    <label class="label" for="MutationType">Selecciona el tipus de mutació genètica:</label>
-                    <select id="MutationType" class="input" name="MutationType[]" multiple size="10">
-                        <option value="TERT Exon 2b/HT/c.835G>A / p.Ala279Thr/ rs61748181">TERT Exon 2b/HT/c.835G>A / p.Ala279Thr/ rs61748181</option>
-                        <option value="TERT">TERT</option>
-                        <option value="TERT + PARN">TERT + PARN</option>
-                        <option value="RTEL1 NP_116575.3, variante R998X, rs398123017">RTEL1 NP_116575.3, variante R998X, rs398123017</option>
-                        <option value="RTEL1, NM_032957.4, R574C, rs369419645">RTEL1, NM_032957.4, R574C, rs369419645</option>
-                        <option value="DKC1">DKC1</option>
-                        <option value="PARN">PARN</option>
-                        <option value="RTEL1 R574C, F988L">RTEL1 R574C, F988L</option>
-                        <option value="TERT del 671_672; PARN V564I">TERT del 671_672; PARN V564I</option>
-                        <option value="TERC">TERC</option>
-                    </select>
-                    <p class="error-message" id="mutation-type-error">Si us plau, selecciona almenys un tipus de mutació.</p>
-                </div>
-
                 <!-- Severity of Telomere Shortening -->
                 <div class="form-group">
                     <label class="label" for="TelomereShorteningSeverity">Quina és la severitat de l'escorçament de telòmeres en el pacient?</label>
-                    <input type="number" id="TelomereShorteningSeverity" class="input" name="TelomereShorteningSeverity" placeholder="Introdueix un número">
-                    <p class="error-message" id="Shortening-error">Si us plau, introdueix la severitat d'escorçament del pacient.</p>
+                    <select id="TelomereShorteningSeverity" class="input" name="TelomereShorteningSeverity">
+                        <option value="">Selecciona</option>
+                        <option value="none">Cap</option>
+                        <option value="mild">Leu</option>
+                        <option value="moderate">Moderada</option>
+                        <option value="severe">Severa</option>
+                    </select>
+                    <p class="error-message" id="telomere-severity-error">Si us plau, selecciona una opció.</p>
                 </div>
 
                 <!-- Missatge d'error general del formulari -->
@@ -704,7 +678,6 @@
         const BloodCountAbnormalitiesInput = document.getElementById('BloodCountAbnormalities');
         const hematologicConfirmSelect = document.getElementById('HematologicDiseaseConfirm');
         const HematologicDiseaseTypesGroup = document.getElementById('HematologicDiseaseTypesGroup');
-        const HematologicDiseaseTypes = document.getElementById('HematologicDiseaseTypes');
         const hematologicAbnormalitiesError = document.getElementById('hematologic-abnormalities-error');
         const bloodcountError = document.getElementById('bloodcount-error');
         const hematologicConfirmError = document.getElementById('hematologic-confirm-error');
@@ -748,8 +721,6 @@
         const formErrorStep10 = document.getElementById('form-error-step-10');
 
         const GeneticMutationInput = document.getElementById('GeneticMutation');
-        const MutationTypeGroup = document.getElementById('MutationTypeGroup');
-        const MutationTypeInput = document.getElementById('MutationType');
         const geneticMutationError = document.getElementById('genetic-mutation-error');
         const mutationTypeError = document.getElementById('mutation-type-error');
         const TelomereShorteningSeverityInput = document.getElementById('TelomereShorteningSeverity');
@@ -934,21 +905,15 @@
             }
 
             // Si OtherCancer és "sí", validar NeoplasiaType
-            if (otherCancer === 'yes') {
-                const selectedOptions = Array.from(NeoplasiaTypeInput.selectedOptions).map(option => option.value);
-                if (selectedOptions.length === 0) {
-                    neoplasiaError.style.display = 'block';
-                    NeoplasiaTypeInput.style.borderColor = '#dc2626';
-                    isValid = false;
-                } else {
-                    neoplasiaError.style.display = 'none';
-                    NeoplasiaTypeInput.style.borderColor = '#93c5fd';
-                }
+            const selectedOptions = Array.from(NeoplasiaTypeInput.selectedOptions).map(option => option.value);
+            if (selectedOptions.length === 0) {
+                neoplasiaError.style.display = 'block';
+                NeoplasiaTypeInput.style.borderColor = '#dc2626';
+                isValid = false;
             } else {
-                // Si OtherCancer no és "sí", no cal validar NeoplasiaType
-                NeoplasiaTypeInput.style.borderColor = '#93c5fd';
                 neoplasiaError.style.display = 'none';
-            }
+                NeoplasiaTypeInput.style.borderColor = '#93c5fd';
+            } 
 
             if (isValid) {
                 formErrorStep6.style.display = 'none';
@@ -991,19 +956,6 @@
             } else {
                 hematologicConfirmError.style.display = 'none';
                 hematologicConfirmSelect.style.borderColor = '#93c5fd';
-            }
-
-            // Si "Sí" està seleccionat, validar els tipus de neoplàsia
-            if (hematologicConfirm === 'yes') {
-                const selectedOptions = Array.from(HematologicDiseaseTypes.selectedOptions).map(option => option.value);
-                if (selectedOptions.length === 0) {
-                    hematologicTypesError.style.display = 'block';
-                    HematologicDiseaseTypes.style.borderColor = '#dc2626';
-                    isValid = false;
-                } else {
-                    hematologicTypesError.style.display = 'none';
-                    HematologicDiseaseTypes.style.borderColor = '#93c5fd';
-                }
             }
 
             if (isValid) {
@@ -1136,18 +1088,6 @@
             }
         });
 
-        // Event Listener per mostrar/ocultar MutationTypeGroup segons GeneticMutation
-        GeneticMutationInput.addEventListener('change', () => {
-            if (GeneticMutationInput.value === 'yes') {
-                MutationTypeGroup.classList.remove('hidden');
-            } else {
-                MutationTypeGroup.classList.add('hidden');
-                // Desseleccionar totes les opcions
-                MutationTypeInput.selectedIndex = -1;
-                mutationTypeError.style.display = 'none';
-            }
-        });
-
         // Continuar des de la undesena secció a la duodèsima
         continueButton11.addEventListener('click', () => {
             let isValid = true;
@@ -1159,19 +1099,6 @@
                 isValid = false;
             } else {
                 geneticMutationError.style.display = 'none';
-            }
-
-            // Si "Sí" està seleccionat, validar els tipus de mutació
-            if (geneticMutation === 'yes') {
-                const selectedMutationTypes = Array.from(MutationTypeInput.selectedOptions).map(option => option.value);
-                if (selectedMutationTypes.length === 0) {
-                    mutationTypeError.style.display = 'block';
-                    MutationTypeInput.style.borderColor = '#dc2626';
-                    isValid = false;
-                } else {
-                    mutationTypeError.style.display = 'none';
-                    MutationTypeInput.style.borderColor = '#93c5fd';
-                }
             }
 
             // Validar Severity of Telomere Shortening
@@ -1207,11 +1134,11 @@
                 Extrapulmonary: ExtrapulmonaryInput.value,
                 LungCancer: LungCancerInput.value,
                 OtherCancer: OtherCancerInput.value,
-                NeoplasiaType: otherCancer === 'yes' ? Array.from(NeoplasiaTypeInput.selectedOptions).map(option => option.value) : [],
+                NeoplasiaType: Array.from(NeoplasiaTypeInput.selectedOptions).map(option => option.value),
+
                 HematologicAbnormalities: HematologicAbnormalitiesInput.value,
                 BloodCountAbnormalities: Array.from(BloodCountAbnormalitiesInput.selectedOptions).map(option => option.value),
                 HematologicDiseaseConfirm: hematologicConfirmSelect.value,
-                HematologicDiseaseTypes: hematologicConfirmSelect.value === 'yes' ? Array.from(HematologicDiseaseTypes.selectedOptions).map(option => option.value) : [],
                 LiverAbnormalityBefore: LiverAbnormalityBeforeInput.value,
                 LiverAbnormality: LiverAbnormalityInput.value,
                 LiverDisease: LiverDiseaseInput.value,
@@ -1228,7 +1155,6 @@
                 SecondDegreeRelative: SecondDegreeRelativeInput.value,
                 MoreThanOneRelative: MoreThanOneRelativeInput.value,
                 GeneticMutation: GeneticMutationInput.value,
-                MutationType: GeneticMutationInput.value === 'yes' ? Array.from(MutationTypeInput.selectedOptions).map(option => option.value) : [],
                 TelomereShorteningSeverity: TelomereShorteningSeverityInput.value
             };
 
@@ -1260,7 +1186,6 @@
                     HematologicAbnormalitiesInput.value = '';
                     BloodCountAbnormalitiesInput.selectedIndex = -1;
                     hematologicConfirmSelect.value = '';
-                    HematologicDiseaseTypes.selectedIndex = -1;
                     LiverAbnormalityBeforeInput.value = '';
                     LiverAbnormalityInput.value = '';
                     LiverDiseaseInput.value = '';
@@ -1277,8 +1202,6 @@
                     SecondDegreeRelativeInput.value = '';
                     MoreThanOneRelativeInput.value = '';
                     GeneticMutationInput.value = '';
-                    MutationTypeInput.selectedIndex = -1;
-                    MutationTypeGroup.classList.add('hidden');
                     TelomereShorteningSeverityInput.value = '';
 
                     // Reiniciar els missatges d'error
@@ -1400,30 +1323,6 @@
             if (e.key === 'Enter') {
                 e.preventDefault();
                 continueButton1.click();
-            }
-        });
-
-        // Event Listener per mostrar/ocultar NeoplasiaTypeGroup segons OtherCancer
-        OtherCancerInput.addEventListener('change', () => {
-            if (OtherCancerInput.value === 'yes') {
-                NeoplasiaTypeGroup.classList.remove('hidden');
-            } else {
-                NeoplasiaTypeGroup.classList.add('hidden');
-                // Desseleccionar totes les opcions
-                NeoplasiaTypeInput.selectedIndex = -1;
-                neoplasiaError.style.display = 'none';
-            }
-        });
-
-        // Event Listener per mostrar/ocultar HematologicDiseaseTypesGroup segons HematologicDiseaseConfirm
-        hematologicConfirmSelect.addEventListener('change', () => {
-            if (hematologicConfirmSelect.value === 'yes') {
-                HematologicDiseaseTypesGroup.classList.remove('hidden');
-            } else {
-                HematologicDiseaseTypesGroup.classList.add('hidden');
-                // Desseleccionar totes les opcions
-                HematologicDiseaseTypes.selectedIndex = -1;
-                hematologicTypesError.style.display = 'none';
             }
         });
 
