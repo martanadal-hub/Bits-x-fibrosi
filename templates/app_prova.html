@@ -171,9 +171,9 @@
                     <label class="label" for="tobacco-history">El pacient té antecedents de tabaquisme?</label>
                     <select id="tobacco-history" class="input" name="TobaccoHistory">
                         <option value="">Selecciona</option>
-                        <option value="No history of smoking">Sense antecedents de tabaquisme</option>
-                        <option value="Active smoker">Fumador actiu</option>
-                        <option value="Ex-smoker">Ex-fumador</option>
+                        <option value="0">Sense antecedents de tabaquisme</option>
+                        <option value="1">Fumador actiu</option>
+                        <option value="2">Ex-fumador</option>
                     </select>
                     <p class="error-message" id="tobacco-error">Si us plau, selecciona l'historial de tabaquisme del pacient.</p>
                 </div>
@@ -208,9 +208,9 @@
                     <label class="label" for="biopsy">Quin és el tipus de biopsia realitzada al pacient?</label>
                     <select id="biopsy" class="input" name="Biopsy">
                         <option value="">Selecciona</option>
-                        <option value="biopsy-none">Sense biopsia</option>
-                        <option value="biopsy-endoscopic">Criobiopsia endoscòpica</option>
-                        <option value="biopsy-surgical">Biopsia quirúrgica</option>
+                        <option value="0">Sense biopsia</option>
+                        <option value="1">Criobiopsia endoscòpica</option>
+                        <option value="2">Biopsia quirúrgica</option>
                     </select>
                     <p class="error-message" id="biopsy-error">Si us plau, selecciona el tipus de biopsia realitzada.</p>
                 </div>
@@ -232,8 +232,8 @@
                     <label class="label" for="Extrapulmonary">El pacient té manifestacions extrapulmonars?</label>
                     <select id="Extrapulmonary" class="input" name="Extrapulmonary">
                         <option value="">Selecciona</option>
-                        <option value="no">No</option>
-                        <option value="yes">Sí</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
                     </select>
                     <p class="error-message" id="extrapulmonary-error">Si us plau, selecciona una opció.</p>
                 </div>
@@ -255,8 +255,8 @@
                     <label class="label" for="LungCancer">El pacient té càncer pulmonar associat?</label>
                     <select id="LungCancer" class="input" name="LungCancer">
                         <option value="">Selecciona</option>
-                        <option value="no">No</option>
-                        <option value="yes">Sí</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
                     </select>
                     <p class="error-message" id="lungcancer-error">Si us plau, selecciona una opció.</p>
                 </div>
@@ -266,8 +266,8 @@
                     <label class="label" for="OtherCancer">El pacient té historial d'altres càncers?</label>
                     <select id="OtherCancer" class="input" name="OtherCancer">
                         <option value="">Selecciona</option>
-                        <option value="no">No</option>
-                        <option value="yes">Sí</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
                     </select>
                     <p class="error-message" id="othercancer-error">Si us plau, selecciona una opció.</p>
                 </div>
@@ -320,8 +320,8 @@
                     <label class="label" for="HematologicAbnormalities">El pacient tenia anormalitats hematològiques abans del diagnòstic?</label>
                     <select id="HematologicAbnormalities" class="input" name="HematologicAbnormalities">
                         <option value="">Selecciona</option>
-                        <option value="no">No</option>
-                        <option value="yes">Sí</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
                     </select>
                     <p class="error-message" id="hematologic-abnormalities-error">Si us plau, selecciona una opció.</p>
                 </div>
@@ -349,8 +349,8 @@
                     <label class="label" for="HematologicDiseaseConfirm">El pacient té alguna malaltia hematològica?</label>
                     <select id="HematologicDiseaseConfirm" class="input" name="HematologicDiseaseConfirm">
                         <option value="">Selecciona</option>
-                        <option value="no">No</option>
-                        <option value="yes">Sí</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
                     </select>
                     <p class="error-message" id="hematologic-confirm-error">Si us plau, selecciona una opció.</p>
                 </div>
@@ -372,8 +372,8 @@
                     <label class="label" for="LiverAbnormalityBefore">El pacient tenia alguna anormalitat hepàtica abans del diagnòstic?</label>
                     <select id="LiverAbnormalityBefore" class="input" name="LiverAbnormalityBefore">
                         <option value="">Selecciona</option>
-                        <option value="no">No</option>
-                        <option value="yes">Sí</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
                     </select>
                     <p class="error-message" id="liverabnormalitybefore-error">Si us plau, selecciona una opció.</p>
                 </div>
@@ -383,8 +383,8 @@
                     <label class="label" for="LiverAbnormality">El pacient té anormalitats hepàtiques actuals?</label>
                     <select id="LiverAbnormality" class="input" name="LiverAbnormality">
                         <option value="">Selecciona</option>
-                        <option value="no">No</option>
-                        <option value="yes">Sí</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
                     </select>
                     <p class="error-message" id="liverabnormality-error">Si us plau, selecciona una opció.</p>
                 </div>
@@ -394,8 +394,8 @@
                     <label class="label" for="LiverDisease">El pacient té alguna malaltia hepàtica?</label>
                     <select id="LiverDisease" class="input" name="LiverDisease">
                         <option value="">Selecciona</option>
-                        <option value="no">No</option>
-                        <option value="yes">Sí</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
                     </select>
                     <p class="error-message" id="liverdisease-error">Si us plau, selecciona una opció.</p>
                 </div>
@@ -408,8 +408,8 @@
                         <label class="label" for="LDH">LDH:</label>
                         <select id="LDH" class="input" name="LDH">
                             <option value="">Selecciona</option>
-                            <option value="normal">Normal</option>
-                            <option value="anormal">Anormal</option>
+                            <option value="0">Normal</option>
+                            <option value="1">Anormal</option>
                         </select>
                         <p class="error-message" id="LDH-error">Si us plau, selecciona una opció per a LDH.</p>
 
@@ -417,8 +417,8 @@
                         <label class="label" for="ALT">ALT:</label>
                         <select id="ALT" class="input" name="ALT">
                             <option value="">Selecciona</option>
-                            <option value="normal">Normal</option>
-                            <option value="anormal">Anormal</option>
+                            <option value="0">Normal</option>
+                            <option value="1">Anormal</option>
                         </select>
                         <p class="error-message" id="ALT-error">Si us plau, selecciona una opció per a ALT.</p>
 
@@ -426,8 +426,8 @@
                         <label class="label" for="AST">AST:</label>
                         <select id="AST" class="input" name="AST">
                             <option value="">Selecciona</option>
-                            <option value="normal">Normal</option>
-                            <option value="anormal">Anormal</option>
+                            <option value="0">Normal</option>
+                            <option value="1">Anormal</option>
                         </select>
                         <p class="error-message" id="AST-error">Si us plau, selecciona una opció per a AST.</p>
 
@@ -435,8 +435,8 @@
                         <label class="label" for="ALP">ALP:</label>
                         <select id="ALP" class="input" name="ALP">
                             <option value="">Selecciona</option>
-                            <option value="normal">Normal</option>
-                            <option value="anormal">Anormal</option>
+                            <option value="0">Normal</option>
+                            <option value="1">Anormal</option>
                         </select>
                         <p class="error-message" id="ALP-error">Si us plau, selecciona una opció per a ALP.</p>
 
@@ -444,8 +444,8 @@
                         <label class="label" for="GGT">GGT:</label>
                         <select id="GGT" class="input" name="GGT">
                             <option value="">Selecciona</option>
-                            <option value="normal">Normal</option>
-                            <option value="anormal">Anormal</option>
+                            <option value="0">Normal</option>
+                            <option value="1">Anormal</option>
                         </select>
                         <p class="error-message" id="GGT-error">Si us plau, selecciona una opció per a GGT.</p>
 
@@ -453,8 +453,8 @@
                         <label class="label" for="Transaminitis">Transaminitis:</label>
                         <select id="Transaminitis" class="input" name="Transaminitis">
                             <option value="">Selecciona</option>
-                            <option value="normal">Normal</option>
-                            <option value="anormal">Anormal</option>
+                            <option value="0">Normal</option>
+                            <option value="1">Anormal</option>
                         </select>
                         <p class="error-message" id="Transaminitis-error">Si us plau, selecciona una opció per a Transaminitis.</p>
 
@@ -462,8 +462,8 @@
                         <label class="label" for="Cholestasis">Colestàsia:</label>
                         <select id="Cholestasis" class="input" name="Cholestasis">
                             <option value="">Selecciona</option>
-                            <option value="normal">Normal</option>
-                            <option value="anormal">Anormal</option>
+                            <option value="0">Normal</option>
+                            <option value="1">Anormal</option>
                         </select>
                         <p class="error-message" id="Cholestasis-error">Si us plau, selecciona una opció per a Colestàsia.</p>
                     </div>
@@ -512,8 +512,8 @@
                     <label class="label" for="FirstDegreeRelative">El pacient té algun familiar de primer grau amb condicions similars?</label>
                     <select id="FirstDegreeRelative" class="input" name="FirstDegreeRelative">
                         <option value="">Selecciona</option>
-                        <option value="no">No</option>
-                        <option value="yes">Sí</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
                     </select>
                     <p class="error-message" id="firstdegree-relative-error">Si us plau, selecciona una opció.</p>
                 </div>
@@ -523,8 +523,8 @@
                     <label class="label" for="SecondDegreeRelative">El pacient té algun familiar de segon grau amb condicions similars?</label>
                     <select id="SecondDegreeRelative" class="input" name="SecondDegreeRelative">
                         <option value="">Selecciona</option>
-                        <option value="no">No</option>
-                        <option value="yes">Sí</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
                     </select>
                     <p class="error-message" id="seconddegree-relative-error">Si us plau, selecciona una opció.</p>
                 </div>
@@ -534,8 +534,8 @@
                     <label class="label" for="MoreThanOneRelative">El pacient té més d'un familiar amb condicions similars?</label>
                     <select id="MoreThanOneRelative" class="input" name="MoreThanOneRelative">
                         <option value="">Selecciona</option>
-                        <option value="no">No</option>
-                        <option value="yes">Sí</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
                     </select>
                     <p class="error-message" id="morethanonerelative-error">Si us plau, selecciona una opció.</p>
                 </div>
@@ -557,8 +557,8 @@
                     <label class="label" for="GeneticMutation">S'ha identificat alguna mutació genètica en el pacient?</label>
                     <select id="GeneticMutation" class="input" name="GeneticMutation">
                         <option value="">Selecciona</option>
-                        <option value="no">No</option>
-                        <option value="yes">Sí</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
                     </select>
                     <p class="error-message" id="genetic-mutation-error">Si us plau, selecciona una opció.</p>
                 </div>
