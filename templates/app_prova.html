@@ -598,14 +598,8 @@
                 <!-- Severity of Telomere Shortening -->
                 <div class="form-group">
                     <label class="label" for="TelomereShorteningSeverity">Quina és la severitat de l'escorçament de telòmeres en el pacient?</label>
-                    <select id="TelomereShorteningSeverity" class="input" name="TelomereShorteningSeverity">
-                        <option value="">Selecciona</option>
-                        <option value="none">Cap</option>
-                        <option value="mild">Leu</option>
-                        <option value="moderate">Moderada</option>
-                        <option value="severe">Severa</option>
-                    </select>
-                    <p class="error-message" id="telomere-severity-error">Si us plau, selecciona una opció.</p>
+                    <input type="number" id="TelomereShorteningSeverity" class="input" name="TelomereShorteningSeverity" placeholder="Introdueix un número">
+                    <p class="error-message" id="Shortening-error">Si us plau, introdueix la severitat d'escorçament del pacient.</p>
                 </div>
 
                 <!-- Missatge d'error general del formulari -->
