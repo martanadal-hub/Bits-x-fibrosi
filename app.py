@@ -15,8 +15,6 @@ if not os.path.exists(SAVE_FOLDER):
 model = load('model_death.pkl')
 print("Model carregat correctament.")
 
-model_variables = ['Pedigree', 'sex', 'Age at diagnosis', 'FinalDiagnosis', 'TobaccoHistory', 'RadiologicalPattern', 'Biopsy']
-
 # Ruta per a la pàgina principal
 @app.route('/')
 def index():
@@ -31,22 +29,12 @@ def save_excel():
 
         if not data:
             return jsonify({'error': 'No hi ha dades per guardar.'}), 400
-        
-        # Codificar les dades de l'usuari
-        tobacco_mapping = {
-            'No history of smoking': 0,
-            'Active smoker': 1,
-            'Ex-smoker': 2
-        }
 
-        biopsy_mapping = {
-            'biopsy-none': 0,
-            'biopsy-endoscopic': 1,
-            'biopsy-surgical': 2
-        }
-
-        data['TobaccoHistory'] = tobacco_mapping.get(data.get('TobaccoHistory'), -1)
-        data['Biopsy'] = biopsy_mapping.get(data.get('Biopsy'), -1)
+        # Convert lists to strings
+        data['NeoplasiaType'] = ', '.join(data.get('NeoplasiaType', []))
+        data['BloodCountAbnormalities'] = ', '.join(data.get('BloodCountAbnormalities', []))
+        data['HematologicDiseaseTypes'] = ', '.join(data.get('HematologicDiseaseTypes', []))
+        data['MutationType'] = ', '.join(data.get('MutationType', []))
 
         # Crear o carregar el fitxer Excel
         filepath = os.path.join(SAVE_FOLDER, 'respostes_questionari.xlsx')
@@ -64,34 +52,34 @@ def save_excel():
 
         # Afegir els encapçalaments si no existeixen
         if sheet.max_row == 1 and all(cell.value is None for cell in sheet[1]):
-            sheet.append(['Usuari', 'Pedigree', 'Sex', 'Age at diagnosis', 'FinalDiagnosis', 'TobaccoHistory', 'RadiologicalPattern', 'Biopsy', 'Predicció'])
+            sheet.append(list(data.keys()) + ['Predicció'])
 
-        # Afegir la nova fila amb les dades i la predicció
-        df_input = pd.DataFrame([data], columns=model_variables)
-        df_input = df_input[model_variables]
+        # Afegir la nova fila amb les dades
+        sheet.append(list(data.values()))
 
-        # Preprocessar les dades noves per predicció
+        # Guardar l'Excel
+        workbook.save(filepath)
+
+        # Convertir les dades a un DataFrame
+        df_input = pd.DataFrame([data])
+
+        # Aplicar One-Hot Encoding
         df_input = pd.get_dummies(df_input, drop_first=True)
+
+        # Ensure all columns expected by the model are present
+        model_columns = model.feature_names_in_
+        missing_cols = set(model_columns) - set(df_input.columns)
+        for col in missing_cols:
+            df_input[col] = 0  # Add missing columns with default value 0
+
+        df_input = df_input[model_columns]  # Reorder columns to match the model
 
         # Preprocessar les dades noves per predicció
         prediction = model.predict(df_input)[0]
         print(f"Predicció: {prediction}")  # Per depuració
 
-        # Afegir la nova fila amb les dades i la predicció
-        user_input = [
-            data.get('usuari'),
-            data.get('Pedigree'),
-            data.get('sex'),
-            data.get('Age at diagnosis'),
-            data.get('FinalDiagnosis'),
-            data.get('TobaccoHistory'),
-            data.get('RadiologicalPattern'),
-            data.get('Biopsy'),
-            prediction
-        ]
-        sheet.append(user_input)
-
-        # Guardar l'Excel
+        # Afegir la predicció a la fila corresponent al fitxer Excel
+        sheet.cell(row=sheet.max_row, column=len(data) + 1).value = prediction
         workbook.save(filepath)
 
         return jsonify({'message': 'Dades guardades correctament i predicció feta.', 'predicció': int(prediction)}), 200
