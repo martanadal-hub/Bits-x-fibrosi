@@ -12,15 +12,15 @@ if not os.path.exists(SAVE_FOLDER):
     os.makedirs(SAVE_FOLDER)
 
 # Carregar el model entrenat
-model = load('model_logistic_regression_progression.pkl')
+model = load('model_death.pkl')
 print("Model carregat correctament.")
 
-model_variables = ['Pedigree', 'sex', 'Age at diagnosis', 'FinalDiagnosis', 'TobaccoHistory']
+model_variables = ['Pedigree', 'sex', 'Age at diagnosis', 'FinalDiagnosis', 'TobaccoHistory', 'RadiologicalPattern', 'Biopsy']
 
 # Ruta per a la pàgina principal
 @app.route('/')
 def index():
-    return render_template('app_autom.html')  # Assegura't que aquest fitxer HTML està a /templates
+    return render_template('app_prova.html')  # Assegura't que aquest fitxer HTML està a /templates
 
 # Ruta per guardar les dades al fitxer Excel
 @app.route('/save-excel', methods=['POST'])
@@ -39,7 +39,14 @@ def save_excel():
             'Ex-smoker': 2
         }
 
+        biopsy_mapping = {
+            'biopsy-none': 0,
+            'biopsy-endoscopic': 1,
+            'biopsy-surgical': 2
+        }
+
         data['TobaccoHistory'] = tobacco_mapping.get(data.get('TobaccoHistory'), -1)
+        data['Biopsy'] = biopsy_mapping.get(data.get('Biopsy'), -1)
 
         # Crear o carregar el fitxer Excel
         filepath = os.path.join(SAVE_FOLDER, 'respostes_questionari.xlsx')
@@ -57,7 +64,7 @@ def save_excel():
 
         # Afegir els encapçalaments si no existeixen
         if sheet.max_row == 1 and all(cell.value is None for cell in sheet[1]):
-            sheet.append(['Usuari', 'Pedigree', 'Sex', 'Age at diagnosis', 'FinalDiagnosis', 'TobaccoHistory', 'Predicció'])
+            sheet.append(['Usuari', 'Pedigree', 'Sex', 'Age at diagnosis', 'FinalDiagnosis', 'TobaccoHistory', 'RadiologicalPattern', 'Biopsy', 'Predicció'])
 
         # Afegir la nova fila amb les dades i la predicció
         df_input = pd.DataFrame([data], columns=model_variables)
@@ -78,6 +85,8 @@ def save_excel():
             data.get('Age at diagnosis'),
             data.get('FinalDiagnosis'),
             data.get('TobaccoHistory'),
+            data.get('RadiologicalPattern'),
+            data.get('Biopsy'),
             prediction
         ]
         sheet.append(user_input)

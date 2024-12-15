@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -106,12 +106,12 @@
     <div class="card">
         <div class="card-header">
             <img src="{{ url_for('static', filename='images/logo-marato.png') }}" alt="La Marató Logo" width="300" height="auto" id="marato-image">
-            <img src="{{ url_for('static', filename='images/malalties-respiratories.jpg') }}" alt="A Ple Pulmó" style="width: 100%; max-width: 200px; margin: 0 auto; display: block;" id="pulmo-image">
             <p style="color: #2563eb; font-weight: 800;">Investigació en Malalties Respiratòries</p>
         </div>
         <div class="card-body">
             <!-- Formulari inicial per al codi d'usuari -->
             <div id="step-1">
+                <img src="{{ url_for('static', filename='images/malalties-respiratories.jpg') }}" alt="A Ple Pulmó" style="width: 100%; max-width: 200px; margin: 0 auto; display: block;" id="pulmo-image">
                 <label class="label" for="codNumber">Introdueix el teu Codi d'Usuari</label>
                 <input type="text" id="codNumber" class="input" placeholder="Codi d'usuari">
                 <p class="error-message" id="user-error">Si us plau, introdueix el teu codi d'usuari.</p>
@@ -218,14 +218,14 @@
                 <!-- Missatge d'error general del formulari -->
                 <p class="error-message" id="form-error-step-4">Si us plau, completa tots els camps requerits.</p>
 
-                <button type="button" id="continue-button-4" class="button">Enviar</button>
+                <button type="button" id="continue-button-4" class="button">Continuar</button>
                 <button type="button" id="back-button-4" class="button" style="background: #6b7280; margin-top: 10px;">Enrere</button>
             </div>
 
             <!-- Step-5: Extrapulmonary Manifestations -->
             <div id="step-5" class="hidden">
                 <p class="user-info" id="user-info-step-5">Usuari: </p>
-                <h2 class="card-title">Extrapulmonary Manifestations</h2>
+                <h2 class="card-title">Manifestacions Extrapulmonars</h2>
 
                 <!-- Extrapulmonary Affectation -->
                 <div class="form-group">
@@ -235,6 +235,7 @@
                         <option value="no">No</option>
                         <option value="yes">Sí</option>
                     </select>
+                    <p class="error-message" id="extrapulmonary-error">Si us plau, selecciona una opció.</p>
                 </div>
 
                 <!-- Missatge d'error general del formulari -->
@@ -257,6 +258,7 @@
                         <option value="no">No</option>
                         <option value="yes">Sí</option>
                     </select>
+                    <p class="error-message" id="lungcancer-error">Si us plau, selecciona una opció.</p>
                 </div>
 
                 <!-- Other Cancer -->
@@ -267,9 +269,11 @@
                         <option value="no">No</option>
                         <option value="yes">Sí</option>
                     </select>
+                    <p class="error-message" id="othercancer-error">Si us plau, selecciona una opció.</p>
                 </div>
 
-                <div class="form-group">
+                <!-- Neoplasia Type -->
+                <div class="form-group hidden" id="NeoplasiaTypeGroup">
                     <label class="label" for="NeoplasiaType">Si el pacient té historial de càncer, selecciona el tipus de neoplasia.</label>
                     <p style="color: #2563eb; font-weight: 300;">Manté presionada la tecla Ctrl (Windows) o Cmd (macOS) per seleccionar múltiples opcions.</p>
                     <select id="NeoplasiaType" class="input" name="NeoplasiaType[]" multiple size="10">
@@ -317,6 +321,7 @@
                         <option value="no">No</option>
                         <option value="yes">Sí</option>
                     </select>
+                    <p class="error-message" id="hematologic-abnormalities-error">Si us plau, selecciona una opció.</p>
                 </div>
 
                 <!-- Blood Count Abnormalities -->
@@ -334,6 +339,7 @@
                         <option value="leukocytosis">Leucocitosi</option>
                         <option value="leukopenia">Leucopenia</option>
                     </select>
+                    <p class="error-message" id="bloodcount-error">Si us plau, selecciona almenys una opció.</p>
                 </div>
 
                 <!-- Hematologic Disease - Confirmació -->
@@ -375,7 +381,7 @@
                 <p class="user-info" id="user-info-step-8">Usuari: </p>
                 <h2 class="card-title">Funció Hepàtica</h2>
 
-                <!-- Liver Abnormality Before Diagnosis ??????????????????-->
+                <!-- Liver Abnormality Before Diagnosis -->
                 <div class="form-group">
                     <label class="label" for="LiverAbnormalityBefore">El pacient tenia alguna anormalitat hepàtica abans del diagnòstic?</label>
                     <select id="LiverAbnormalityBefore" class="input" name="LiverAbnormalityBefore">
@@ -383,6 +389,7 @@
                         <option value="no">No</option>
                         <option value="yes">Sí</option>
                     </select>
+                    <p class="error-message" id="liverabnormalitybefore-error">Si us plau, selecciona una opció.</p>
                 </div>
 
                 <!-- Liver Abnormality -->
@@ -393,6 +400,7 @@
                         <option value="no">No</option>
                         <option value="yes">Sí</option>
                     </select>
+                    <p class="error-message" id="liverabnormality-error">Si us plau, selecciona una opció.</p>
                 </div>
 
                 <!-- Liver Disease -->
@@ -403,12 +411,12 @@
                         <option value="no">No</option>
                         <option value="yes">Sí</option>
                     </select>
+                    <p class="error-message" id="liverdisease-error">Si us plau, selecciona una opció.</p>
                 </div>
 
-                
                 <!-- Liver Function Tests -->
                 <div class="form-group">
-                    <label class="label" for="liverfunctiontests">Quines són les valors dels següents proves de funció hepàtica?</label>
+                    <label class="label" for="liverfunctiontests">Quines són els valors dels següents proves de funció hepàtica?</label>
                     <div style="text-align: left; margin-left: 10%;">
                         <!-- LDH -->
                         <label class="label" for="LDH">LDH:</label>
@@ -491,12 +499,14 @@
                 <div class="form-group">
                     <label class="label" for="FVC">Quina és la FVC (%) del pacient al moment del diagnòstic?</label>
                     <input type="number" id="FVC" class="input" name="FVC" placeholder="Introdueix FVC (%)">
+                    <p class="error-message" id="FVC-error">Si us plau, introdueix la FVC del pacient.</p>
                 </div>
 
                 <!-- DLCO (%) at diagnosis -->
                 <div class="form-group">
                     <label class="label" for="DLCO">Quina és la DLCO (%) del pacient al moment del diagnòstic?</label>
                     <input type="number" id="DLCO" class="input" name="DLCO" placeholder="Introdueix DLCO (%)">
+                    <p class="error-message" id="DLCO-error">Si us plau, introdueix la DLCO del pacient.</p>
                 </div>
 
                 <!-- Missatge d'error general del formulari -->
@@ -519,6 +529,7 @@
                         <option value="no">No</option>
                         <option value="yes">Sí</option>
                     </select>
+                    <p class="error-message" id="firstdegree-relative-error">Si us plau, selecciona una opció.</p>
                 </div>
 
                 <!-- 2nd Degree Relative -->
@@ -529,6 +540,7 @@
                         <option value="no">No</option>
                         <option value="yes">Sí</option>
                     </select>
+                    <p class="error-message" id="seconddegree-relative-error">Si us plau, selecciona una opció.</p>
                 </div>
 
                 <!-- More Than One Relative -->
@@ -539,6 +551,7 @@
                         <option value="no">No</option>
                         <option value="yes">Sí</option>
                     </select>
+                    <p class="error-message" id="morethanonerelative-error">Si us plau, selecciona una opció.</p>
                 </div>
 
                 <!-- Missatge d'error general del formulari -->
@@ -561,6 +574,7 @@
                         <option value="no">No</option>
                         <option value="yes">Sí</option>
                     </select>
+                    <p class="error-message" id="genetic-mutation-error">Si us plau, selecciona una opció.</p>
                 </div>
 
                 <!-- Mutation Type (ocult inicialment) -->
@@ -581,7 +595,6 @@
                     <p class="error-message" id="mutation-type-error">Si us plau, selecciona almenys un tipus de mutació.</p>
                 </div>
 
-
                 <!-- Severity of Telomere Shortening -->
                 <div class="form-group">
                     <label class="label" for="TelomereShorteningSeverity">Quina és la severitat de l'escorçament de telòmeres en el pacient?</label>
@@ -592,6 +605,7 @@
                         <option value="moderate">Moderada</option>
                         <option value="severe">Severa</option>
                     </select>
+                    <p class="error-message" id="telomere-severity-error">Si us plau, selecciona una opció.</p>
                 </div>
 
                 <!-- Missatge d'error general del formulari -->
@@ -608,6 +622,9 @@
                 <p>Revisa les teves respostes abans d'enviar-les.</p>
                 <!-- Aquí podríem afegir una revisió de totes les dades si es desitja -->
 
+                <!-- Missatge d'error general del formulari -->
+                <p class="error-message" id="form-error-step-12">Si us plau, completa tots els camps requerits.</p>
+
                 <button type="button" id="submit-button-final" class="button">Enviar</button>
                 <button type="button" id="back-button-12" class="button" style="background: #6b7280; margin-top: 10px;">Enrere</button>
             </div>
@@ -615,6 +632,7 @@
     </div>
 
     <script>
+        // Definició de totes les seccions
         const step1 = document.getElementById('step-1');
         const step2 = document.getElementById('step-2');
         const step3 = document.getElementById('step-3');
@@ -628,6 +646,7 @@
         const step11 = document.getElementById('step-11');
         const step12 = document.getElementById('step-12');
 
+        // Definició de tots els botons de continuar
         const continueButton1 = document.getElementById('continue-button-1');
         const continueButton2 = document.getElementById('continue-button-2');
         const continueButton3 = document.getElementById('continue-button-3');
@@ -640,8 +659,7 @@
         const continueButton10 = document.getElementById('continue-button-10');
         const continueButton11 = document.getElementById('continue-button-11');
 
-        const submitButton = document.getElementById('submit-button');
-
+        // Definició de tots els botons de tornar enrere
         const backButton2 = document.getElementById('back-button-2');
         const backButton3 = document.getElementById('back-button-3');
         const backButton4 = document.getElementById('back-button-4');
@@ -654,6 +672,7 @@
         const backButton11 = document.getElementById('back-button-11');
         const backButton12 = document.getElementById('back-button-12');
 
+        // Definició dels inputs i missatges d'error
         const codNumberInput = document.getElementById('codNumber');
         const userError = document.getElementById('user-error');
 
@@ -683,12 +702,19 @@
         const LungCancerInput = document.getElementById('LungCancer');
         const OtherCancerInput = document.getElementById('OtherCancer');
         const NeoplasiaTypeInput = document.getElementById('NeoplasiaType');
+        const NeoplasiaTypeGroup = document.getElementById('NeoplasiaTypeGroup');
+        const neoplasiaError = document.getElementById('neoplasia-error');
         const formErrorStep6 = document.getElementById('form-error-step-6');
 
         const HematologicAbnormalitiesInput = document.getElementById('HematologicAbnormalities');
         const BloodCountAbnormalitiesInput = document.getElementById('BloodCountAbnormalities');
         const hematologicConfirmSelect = document.getElementById('HematologicDiseaseConfirm');
-        const hematologicTypesGroup = document.getElementById('HematologicDiseaseTypesGroup');
+        const HematologicDiseaseTypesGroup = document.getElementById('HematologicDiseaseTypesGroup');
+        const HematologicDiseaseTypes = document.getElementById('HematologicDiseaseTypes');
+        const hematologicAbnormalitiesError = document.getElementById('hematologic-abnormalities-error');
+        const bloodcountError = document.getElementById('bloodcount-error');
+        const hematologicConfirmError = document.getElementById('hematologic-confirm-error');
+        const hematologicTypesError = document.getElementById('hematologic-types-error');
         const formErrorStep7 = document.getElementById('form-error-step-7');
 
         const LiverAbnormalityBeforeInput = document.getElementById('LiverAbnormalityBefore');
@@ -699,21 +725,46 @@
         const ASTInput = document.getElementById('AST');
         const ALPInput = document.getElementById('ALP');
         const GGTInput = document.getElementById('GGT');
+        const TransaminitisInput = document.getElementById('Transaminitis');
+        const CholestasisInput = document.getElementById('Cholestasis');
+        const liverabnormalitybeforeError = document.getElementById('liverabnormalitybefore-error');
+        const liverabnormalityError = document.getElementById('liverabnormality-error');
+        const liverdiseaseError = document.getElementById('liverdisease-error');
+        const LDHError = document.getElementById('LDH-error');
+        const ALTError = document.getElementById('ALT-error');
+        const ASTError = document.getElementById('AST-error');
+        const ALPError = document.getElementById('ALP-error');
+        const GGTError = document.getElementById('GGT-error');
+        const TransaminitisError = document.getElementById('Transaminitis-error');
+        const CholestasisError = document.getElementById('Cholestasis-error');
         const formErrorStep8 = document.getElementById('form-error-step-8');
 
         const FVCInput = document.getElementById('FVC');
         const DLCOInput = document.getElementById('DLCO');
+        const FVCError = document.getElementById('FVC-error');
+        const DLCOError = document.getElementById('DLCO-error');
         const formErrorStep9 = document.getElementById('form-error-step-9');
 
         const FirstDegreeRelativeInput = document.getElementById('FirstDegreeRelative');
         const SecondDegreeRelativeInput = document.getElementById('SecondDegreeRelative');
         const MoreThanOneRelativeInput = document.getElementById('MoreThanOneRelative');
+        const firstdegreeRelativeError = document.getElementById('firstdegree-relative-error');
+        const seconddegreeRelativeError = document.getElementById('seconddegree-relative-error');
+        const morethanonerelativeError = document.getElementById('morethanonerelative-error');
         const formErrorStep10 = document.getElementById('form-error-step-10');
 
         const GeneticMutationInput = document.getElementById('GeneticMutation');
         const MutationTypeGroup = document.getElementById('MutationTypeGroup');
+        const MutationTypeInput = document.getElementById('MutationType');
+        const geneticMutationError = document.getElementById('genetic-mutation-error');
+        const mutationTypeError = document.getElementById('mutation-type-error');
         const TelomereShorteningSeverityInput = document.getElementById('TelomereShorteningSeverity');
+        const telomereSeverityError = document.getElementById('telomere-severity-error');
         const formErrorStep11 = document.getElementById('form-error-step-11');
+
+        const submitButtonFinal = document.getElementById('submit-button-final');
+        const formErrorStep12 = document.getElementById('form-error-step-12');
+        const extrapulmonaryError = document.getElementById('extrapulmonary-error');
 
         // Funció per mostrar una secció i ocultar les altres
         function showStep(stepToShow) {
@@ -726,23 +777,20 @@
             });
         }
 
+        // Actualitzar el text d'usuari en totes les seccions
+        function updateUserInfo(userCode) {
+            const userInfoElements = document.querySelectorAll('.user-info');
+            userInfoElements.forEach(element => {
+                element.textContent = `Usuari: ${userCode}`;
+            });
+        }
+
         // Continuar des de la primera secció a la segona
         continueButton1.addEventListener('click', () => {
             const userCode = codNumberInput.value.trim();
             if (userCode) {
                 userError.style.display = 'none';
-                // Actualitzar el text d'usuari en les seccions següents
-                document.getElementById('user-info').textContent = `Usuari: ${userCode}`;
-                document.getElementById('user-info-step-3').textContent = `Usuari: ${userCode}`;
-                document.getElementById('user-info-step-4').textContent = `Usuari: ${userCode}`;
-                document.getElementById('user-info-step-5').textContent = `Usuari: ${userCode}`;
-                document.getElementById('user-info-step-6').textContent = `Usuari: ${userCode}`;
-                document.getElementById('user-info-step-7').textContent = `Usuari: ${userCode}`;
-                document.getElementById('user-info-step-8').textContent = `Usuari: ${userCode}`;
-                document.getElementById('user-info-step-9').textContent = `Usuari: ${userCode}`;
-                document.getElementById('user-info-step-10').textContent = `Usuari: ${userCode}`;
-                document.getElementById('user-info-step-11').textContent = `Usuari: ${userCode}`;
-                document.getElementById('user-info-step-12').textContent = `Usuari: ${userCode}`;
+                updateUserInfo(userCode);
                 showStep(step2);
             } else {
                 userError.style.display = 'block';
@@ -855,13 +903,14 @@
             // Validar Extrapulmonary Affectation
             const extrapulmonary = ExtrapulmonaryInput.value;
             if (!extrapulmonary) {
-                formErrorStep5.style.display = 'block';
+                extrapulmonaryError.style.display = 'block';
                 isValid = false;
             } else {
-                formErrorStep5.style.display = 'none';
+                extrapulmonaryError.style.display = 'none';
             }
 
             if (isValid) {
+                formErrorStep5.style.display = 'none';
                 showStep(step6);
             } else {
                 formErrorStep5.style.display = 'block';
@@ -892,21 +941,21 @@
 
             // Si OtherCancer és "sí", validar NeoplasiaType
             if (otherCancer === 'yes') {
-                const neoplasiaSelect = document.getElementById('NeoplasiaType');
-                const selectedOptions = Array.from(neoplasiaSelect.selectedOptions).map(option => option.value);
+                const selectedOptions = Array.from(NeoplasiaTypeInput.selectedOptions).map(option => option.value);
                 if (selectedOptions.length === 0) {
-                    document.getElementById('neoplasia-error').style.display = 'block';
-                    neoplasiaSelect.style.borderColor = '#dc2626';
+                    neoplasiaError.style.display = 'block';
+                    NeoplasiaTypeInput.style.borderColor = '#dc2626';
                     isValid = false;
                 } else {
-                    document.getElementById('neoplasia-error').style.display = 'none';
-                    neoplasiaSelect.style.borderColor = '#93c5fd';
+                    neoplasiaError.style.display = 'none';
+                    NeoplasiaTypeInput.style.borderColor = '#93c5fd';
                 }
             } else {
                 // Si OtherCancer no és "sí", no cal validar NeoplasiaType
-                document.getElementById('NeoplasiaType').style.borderColor = '#93c5fd';
-                document.getElementById('neoplasia-error').style.display = 'none';
-    }
+                NeoplasiaTypeInput.style.borderColor = '#93c5fd';
+                neoplasiaError.style.display = 'none';
+            }
+
             if (isValid) {
                 formErrorStep6.style.display = 'none';
                 showStep(step7);
@@ -922,43 +971,44 @@
             // Validar Hematological Abnormalities
             const hematologicAbnormalities = HematologicAbnormalitiesInput.value;
             if (!hematologicAbnormalities) {
-                formErrorStep7.style.display = 'block';
+                hematologicAbnormalitiesError.style.display = 'block';
                 isValid = false;
             } else {
-                formErrorStep7.style.display = 'none';
+                hematologicAbnormalitiesError.style.display = 'none';
             }
 
             // Validar Blood Count Abnormalities
             const bloodCountAbnormalities = Array.from(BloodCountAbnormalitiesInput.selectedOptions).map(option => option.value);
             if (bloodCountAbnormalities.length === 0) {
+                bloodcountError.style.display = 'block';
                 BloodCountAbnormalitiesInput.style.borderColor = '#dc2626';
                 isValid = false;
             } else {
+                bloodcountError.style.display = 'none';
                 BloodCountAbnormalitiesInput.style.borderColor = '#93c5fd';
             }
 
             // Validar la confirmació
             const hematologicConfirm = hematologicConfirmSelect.value;
             if (!hematologicConfirm) {
-                document.getElementById('hematologic-confirm-error').style.display = 'block';
+                hematologicConfirmError.style.display = 'block';
                 hematologicConfirmSelect.style.borderColor = '#dc2626';
                 isValid = false;
             } else {
-                document.getElementById('hematologic-confirm-error').style.display = 'none';
+                hematologicConfirmError.style.display = 'none';
                 hematologicConfirmSelect.style.borderColor = '#93c5fd';
             }
 
             // Si "Sí" està seleccionat, validar els tipus de neoplàsia
             if (hematologicConfirm === 'yes') {
-                const hematologicTypesSelect = document.getElementById('HematologicDiseaseTypes');
-                const selectedOptions = Array.from(hematologicTypesSelect.selectedOptions).map(option => option.value);
+                const selectedOptions = Array.from(HematologicDiseaseTypes.selectedOptions).map(option => option.value);
                 if (selectedOptions.length === 0) {
-                    document.getElementById('hematologic-types-error').style.display = 'block';
-                    hematologicTypesSelect.style.borderColor = '#dc2626';
+                    hematologicTypesError.style.display = 'block';
+                    HematologicDiseaseTypes.style.borderColor = '#dc2626';
                     isValid = false;
                 } else {
-                    document.getElementById('hematologic-types-error').style.display = 'none';
-                    hematologicTypesSelect.style.borderColor = '#93c5fd';
+                    hematologicTypesError.style.display = 'none';
+                    HematologicDiseaseTypes.style.borderColor = '#93c5fd';
                 }
             }
 
@@ -977,28 +1027,28 @@
             // Validar Liver Abnormality Before Diagnosis
             const liverAbnormalityBefore = LiverAbnormalityBeforeInput.value;
             if (!liverAbnormalityBefore) {
-                formErrorStep8.style.display = 'block';
+                liverabnormalitybeforeError.style.display = 'block';
                 isValid = false;
             } else {
-                formErrorStep8.style.display = 'none';
+                liverabnormalitybeforeError.style.display = 'none';
             }
 
             // Validar Liver Abnormality
             const liverAbnormality = LiverAbnormalityInput.value;
             if (!liverAbnormality) {
-                formErrorStep8.style.display = 'block';
+                liverabnormalityError.style.display = 'block';
                 isValid = false;
             } else {
-                formErrorStep8.style.display = 'none';
+                liverabnormalityError.style.display = 'none';
             }
 
             // Validar Liver Disease
             const liverDisease = LiverDiseaseInput.value;
             if (!liverDisease) {
-                formErrorStep8.style.display = 'block';
+                liverdiseaseError.style.display = 'block';
                 isValid = false;
             } else {
-                formErrorStep8.style.display = 'none';
+                liverdiseaseError.style.display = 'none';
             }
 
             // Validar Liver Function Tests (cada camp)
@@ -1024,7 +1074,6 @@
             }
         });
 
-
         // Continuar des de la novena secció a la desena
         continueButton9.addEventListener('click', () => {
             let isValid = true;
@@ -1032,19 +1081,19 @@
             // Validar FVC
             const FVC = FVCInput.value.trim();
             if (!FVC) {
-                formErrorStep9.style.display = 'block';
+                FVCError.style.display = 'block';
                 isValid = false;
             } else {
-                formErrorStep9.style.display = 'none';
+                FVCError.style.display = 'none';
             }
 
             // Validar DLCO
             const DLCO = DLCOInput.value.trim();
             if (!DLCO) {
-                formErrorStep9.style.display = 'block';
+                DLCOError.style.display = 'block';
                 isValid = false;
             } else {
-                formErrorStep9.style.display = 'none';
+                DLCOError.style.display = 'none';
             }
 
             if (isValid) {
@@ -1064,11 +1113,25 @@
             const secondDegree = SecondDegreeRelativeInput.value;
             const moreThanOneRelative = MoreThanOneRelativeInput.value;
 
-            if (!firstDegree || !secondDegree || !moreThanOneRelative) {
-                formErrorStep10.style.display = 'block';
+            if (!firstDegree) {
+                firstdegreeRelativeError.style.display = 'block';
                 isValid = false;
             } else {
-                formErrorStep10.style.display = 'none';
+                firstdegreeRelativeError.style.display = 'none';
+            }
+
+            if (!secondDegree) {
+                seconddegreeRelativeError.style.display = 'block';
+                isValid = false;
+            } else {
+                seconddegreeRelativeError.style.display = 'none';
+            }
+
+            if (!moreThanOneRelative) {
+                morethanonerelativeError.style.display = 'block';
+                isValid = false;
+            } else {
+                morethanonerelativeError.style.display = 'none';
             }
 
             if (isValid) {
@@ -1079,6 +1142,18 @@
             }
         });
 
+        // Event Listener per mostrar/ocultar MutationTypeGroup segons GeneticMutation
+        GeneticMutationInput.addEventListener('change', () => {
+            if (GeneticMutationInput.value === 'yes') {
+                MutationTypeGroup.classList.remove('hidden');
+            } else {
+                MutationTypeGroup.classList.add('hidden');
+                // Desseleccionar totes les opcions
+                MutationTypeInput.selectedIndex = -1;
+                mutationTypeError.style.display = 'none';
+            }
+        });
+
         // Continuar des de la undesena secció a la duodèsima
         continueButton11.addEventListener('click', () => {
             let isValid = true;
@@ -1086,33 +1161,32 @@
             // Validar Genetic Mutation
             const geneticMutation = GeneticMutationInput.value;
             if (!geneticMutation) {
-                formErrorStep11.style.display = 'block';
+                geneticMutationError.style.display = 'block';
                 isValid = false;
             } else {
-                formErrorStep11.style.display = 'none';
+                geneticMutationError.style.display = 'none';
             }
 
             // Si "Sí" està seleccionat, validar els tipus de mutació
             if (geneticMutation === 'yes') {
-                const mutationSelect = document.getElementById('MutationType');
-                const selectedOptions = Array.from(mutationSelect.selectedOptions).map(option => option.value);
-                if (selectedOptions.length === 0) {
-                    document.getElementById('mutation-type-error').style.display = 'block';
-                    mutationSelect.style.borderColor = '#dc2626';
+                const selectedMutationTypes = Array.from(MutationTypeInput.selectedOptions).map(option => option.value);
+                if (selectedMutationTypes.length === 0) {
+                    mutationTypeError.style.display = 'block';
+                    MutationTypeInput.style.borderColor = '#dc2626';
                     isValid = false;
                 } else {
-                    document.getElementById('mutation-type-error').style.display = 'none';
-                    mutationSelect.style.borderColor = '#93c5fd';
+                    mutationTypeError.style.display = 'none';
+                    MutationTypeInput.style.borderColor = '#93c5fd';
                 }
             }
 
             // Validar Severity of Telomere Shortening
             const telomereSeverity = TelomereShorteningSeverityInput.value;
             if (!telomereSeverity) {
-                formErrorStep11.style.display = 'block';
+                telomereSeverityError.style.display = 'block';
                 isValid = false;
             } else {
-                formErrorStep11.style.display = 'none';
+                telomereSeverityError.style.display = 'none';
             }
 
             if (isValid) {
@@ -1126,6 +1200,7 @@
         // Enviar el formulari des de la duodèsima secció
         submitButtonFinal.addEventListener('click', async () => {
             // Reunir totes les dades
+            const otherCancer = OtherCancerInput.value; // Definir `otherCancer` correctament
             const formData = {
                 usuari: codNumberInput.value.trim(),
                 Pedigree: pedigreeInput.value.trim(),
@@ -1138,11 +1213,11 @@
                 Extrapulmonary: ExtrapulmonaryInput.value,
                 LungCancer: LungCancerInput.value,
                 OtherCancer: OtherCancerInput.value,
-                NeoplasiaType: Array.from(document.getElementById('NeoplasiaType').selectedOptions).map(option => option.value),                
+                NeoplasiaType: otherCancer === 'yes' ? Array.from(NeoplasiaTypeInput.selectedOptions).map(option => option.value) : [],
                 HematologicAbnormalities: HematologicAbnormalitiesInput.value,
                 BloodCountAbnormalities: Array.from(BloodCountAbnormalitiesInput.selectedOptions).map(option => option.value),
                 HematologicDiseaseConfirm: hematologicConfirmSelect.value,
-                HematologicDiseaseTypes: Array.from(document.getElementById('HematologicDiseaseTypes').selectedOptions).map(option => option.value),
+                HematologicDiseaseTypes: hematologicConfirmSelect.value === 'yes' ? Array.from(HematologicDiseaseTypes.selectedOptions).map(option => option.value) : [],
                 LiverAbnormalityBefore: LiverAbnormalityBeforeInput.value,
                 LiverAbnormality: LiverAbnormalityInput.value,
                 LiverDisease: LiverDiseaseInput.value,
@@ -1151,13 +1226,15 @@
                 AST: ASTInput.value.trim(),
                 ALP: ALPInput.value.trim(),
                 GGT: GGTInput.value.trim(),
+                Transaminitis: TransaminitisInput.value.trim(),
+                Cholestasis: CholestasisInput.value.trim(),
                 FVC: FVCInput.value.trim(),
                 DLCO: DLCOInput.value.trim(),
                 FirstDegreeRelative: FirstDegreeRelativeInput.value,
                 SecondDegreeRelative: SecondDegreeRelativeInput.value,
                 MoreThanOneRelative: MoreThanOneRelativeInput.value,
                 GeneticMutation: GeneticMutationInput.value,
-                MutationType: Array.from(document.getElementById('MutationType').selectedOptions).map(option => option.value),
+                MutationType: GeneticMutationInput.value === 'yes' ? Array.from(MutationTypeInput.selectedOptions).map(option => option.value) : [],
                 TelomereShorteningSeverity: TelomereShorteningSeverityInput.value
             };
 
@@ -1188,26 +1265,25 @@
                     NeoplasiaTypeInput.selectedIndex = -1;
                     HematologicAbnormalitiesInput.value = '';
                     BloodCountAbnormalitiesInput.selectedIndex = -1;
-                    HematologicDiseaseConfirm.value = '';
+                    hematologicConfirmSelect.value = '';
                     HematologicDiseaseTypes.selectedIndex = -1;
                     LiverAbnormalityBeforeInput.value = '';
                     LiverAbnormalityInput.value = '';
                     LiverDiseaseInput.value = '';
-                    const liverTests = ['LDH', 'ALT', 'AST', 'ALP', 'GGT', 'Transaminitis', 'Cholestasis'];
-                    liverTests.forEach(test => {
-                        const testInput = document.getElementById(test);
-                        testInput.value = '';
-                        const errorElement = document.getElementById(`${test}-error`);
-                        errorElement.style.display = 'none';
-                        testInput.style.borderColor = '#93c5fd';
-                    });
-
+                    LDHInput.value = '';
+                    ALTInput.value = '';
+                    ASTInput.value = '';
+                    ALPInput.value = '';
+                    GGTInput.value = '';
+                    TransaminitisInput.value = '';
+                    CholestasisInput.value = '';
                     FVCInput.value = '';
                     DLCOInput.value = '';
                     FirstDegreeRelativeInput.value = '';
                     SecondDegreeRelativeInput.value = '';
                     MoreThanOneRelativeInput.value = '';
                     GeneticMutationInput.value = '';
+                    MutationTypeInput.selectedIndex = -1;
                     MutationTypeGroup.classList.add('hidden');
                     TelomereShorteningSeverityInput.value = '';
 
@@ -1220,6 +1296,32 @@
                     tobaccoError.style.display = 'none';
                     radiologicalPatternError.style.display = 'none';
                     biopsyError.style.display = 'none';
+                    extrapulmonaryError.style.display = 'none';
+                    lungcancerError.style.display = 'none';
+                    othercancerError.style.display = 'none';
+                    neoplasiaError.style.display = 'none';
+                    hematologicAbnormalitiesError.style.display = 'none';
+                    bloodcountError.style.display = 'none';
+                    hematologicConfirmError.style.display = 'none';
+                    hematologicTypesError.style.display = 'none';
+                    liverabnormalitybeforeError.style.display = 'none';
+                    liverabnormalityError.style.display = 'none';
+                    liverdiseaseError.style.display = 'none';
+                    LDHError.style.display = 'none';
+                    ALTError.style.display = 'none';
+                    ASTError.style.display = 'none';
+                    ALPError.style.display = 'none';
+                    GGTError.style.display = 'none';
+                    TransaminitisError.style.display = 'none';
+                    CholestasisError.style.display = 'none';
+                    FVCError.style.display = 'none';
+                    DLCOError.style.display = 'none';
+                    firstdegreeRelativeError.style.display = 'none';
+                    seconddegreeRelativeError.style.display = 'none';
+                    morethanonerelativeError.style.display = 'none';
+                    geneticMutationError.style.display = 'none';
+                    mutationTypeError.style.display = 'none';
+                    telomereSeverityError.style.display = 'none';
                     formErrorStep2.style.display = 'none';
                     formErrorStep3.style.display = 'none';
                     formErrorStep4.style.display = 'none';
@@ -1306,6 +1408,31 @@
                 continueButton1.click();
             }
         });
+
+        // Event Listener per mostrar/ocultar NeoplasiaTypeGroup segons OtherCancer
+        OtherCancerInput.addEventListener('change', () => {
+            if (OtherCancerInput.value === 'yes') {
+                NeoplasiaTypeGroup.classList.remove('hidden');
+            } else {
+                NeoplasiaTypeGroup.classList.add('hidden');
+                // Desseleccionar totes les opcions
+                NeoplasiaTypeInput.selectedIndex = -1;
+                neoplasiaError.style.display = 'none';
+            }
+        });
+
+        // Event Listener per mostrar/ocultar HematologicDiseaseTypesGroup segons HematologicDiseaseConfirm
+        hematologicConfirmSelect.addEventListener('change', () => {
+            if (hematologicConfirmSelect.value === 'yes') {
+                HematologicDiseaseTypesGroup.classList.remove('hidden');
+            } else {
+                HematologicDiseaseTypesGroup.classList.add('hidden');
+                // Desseleccionar totes les opcions
+                HematologicDiseaseTypes.selectedIndex = -1;
+                hematologicTypesError.style.display = 'none';
+            }
+        });
+
     </script>
 </body>
 </html>
