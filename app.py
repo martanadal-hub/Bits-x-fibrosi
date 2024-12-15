@@ -8,7 +8,7 @@ app = Flask(__name__)
 EXCEL_FILE = 'form_data.xlsx'
 
 # Definició dels capçaleres basats en les claus de formData
-HEADERS = ['Pedigree', 'sex', 'Age at diagnosis', 'FinalDiagnosis', 'TobaccoHistory',
+HEADERS = ['usuari', 'Pedigree', 'sex', 'Age at diagnosis', 'FinalDiagnosis', 'TobaccoHistory',
        'RadiologicalPattern', 'Biopsy', 'Extrapulmonary',
        'LungCancer', 'OtherCancer', 'NeoplasiaType[]',
        'HematologicAbnormalities',
