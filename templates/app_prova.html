@@ -209,7 +209,7 @@
                     <select id="biopsy" class="input" name="Biopsy">
                         <option value="">Selecciona</option>
                         <option value="biopsy-none">Sense biopsia</option>
-                        <option value="biopsy-endoscopic">Criobiòpsia endoscòpica</option>
+                        <option value="biopsy-endoscopic">Criobiopsia endoscòpica</option>
                         <option value="biopsy-surgical">Biopsia quirúrgica</option>
                     </select>
                     <p class="error-message" id="biopsy-error">Si us plau, selecciona el tipus de biopsia realitzada.</p>
@@ -564,16 +564,12 @@
                 </div>
 
                 <!-- Severity of Telomere Shortening -->
+                
+
                 <div class="form-group">
                     <label class="label" for="TelomereShorteningSeverity">Quina és la severitat de l'escorçament de telòmeres en el pacient?</label>
-                    <select id="TelomereShorteningSeverity" class="input" name="TelomereShorteningSeverity">
-                        <option value="">Selecciona</option>
-                        <option value="none">Cap</option>
-                        <option value="mild">Leu</option>
-                        <option value="moderate">Moderada</option>
-                        <option value="severe">Severa</option>
-                    </select>
-                    <p class="error-message" id="telomere-severity-error">Si us plau, selecciona una opció.</p>
+                    <input type="number" id="TelomereShorteningSeverity" class="input" name="TelomereShorteningSeverity" placeholder="Introdueix la severitat d'escorçament">
+                    <p class="error-message" id="telomere-severity-error">Si us plau, introdueix la severitat d'escorçament del pacient.</p>
                 </div>
 
                 <!-- Missatge d'error general del formulari -->
@@ -1155,7 +1151,7 @@
                 SecondDegreeRelative: SecondDegreeRelativeInput.value,
                 MoreThanOneRelative: MoreThanOneRelativeInput.value,
                 GeneticMutation: GeneticMutationInput.value,
-                TelomereShorteningSeverity: TelomereShorteningSeverityInput.value
+                TelomereShorteningSeverity: TelomereShorteningSeverityInput.value.trim()
             };
 
             // Opcional: Validació addicional si cal
